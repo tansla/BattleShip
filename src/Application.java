@@ -1,13 +1,15 @@
-public class BattleShip {
+public class Application {
 
     public static void main(String[] args) {
 
         Map myMap = new Map();
 
+        /*
+
         for(int i=0;i<10;i++) {
             for (int j = 0; j < 10; j++) {
                 if ( (i+j+1)%4 ==0) {
-                    myMap.field[j][i] = 4;
+                    myMap.myField[j][i] = 4;
                 }
             }
         }
@@ -15,7 +17,7 @@ public class BattleShip {
         for(int i=0;i<10;i++) {
             for (int j = 0; j < 10; j++) {
                 if ( (i+j+1)%3 ==0) {
-                    myMap.field[j][i] = 3;
+                    myMap.myField[j][i] = 3;
                 }
             }
         }
@@ -23,18 +25,24 @@ public class BattleShip {
         for(int i=0;i<10;i++) {
             for (int j = 0; j < 10; j++) {
                 if ( (i+j+1)%2 ==0 ) {
-                    myMap.field[j][i] = 2;
+                    myMap.myField[j][i] = 2;
                 }
             }
         }
-//        myMap.initMap();
-        myMap.print();
 
-        myMap.initStrategy4();
 
-        for (int k=0; k<myMap.STRATEGY4.length; k++) {
-           System.out.println(myMap.STRATEGY4[k].x + " - " + myMap.STRATEGY4[k].y);
-        }
+         */
+        myMap.initMap();
+        myMap.printMyField();
+
+        System.out.println("Enemy Field");
+
+        myMap.initStrategy();
+        myMap.printEnemyField();
+
+
+
+
 /*
         int[][] myMap2 = myMap.getMap();
 

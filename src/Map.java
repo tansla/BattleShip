@@ -2,10 +2,17 @@ import java.util.Random;
 
 public class Map {
     //    private static int[][] field= new int[10][10];
-    public int[][] field = new int[10][10];
+    public int[][] myField = new int[10][10];
+    public int[][] enemyField = new int[10][10];
     private static final int EMPTY = 0;
     private static final int DECK = 1;
     private static final int INJURED = 2;
+    private static final int SEARCH4 = -4;
+    private static final int SEARCH3 = -3;
+    private static final int SEARCH2 = -2;
+    private static final int UNKNOWN = -1;
+
+    /*
     static final Coordinates[] STRATEGY4 = new Coordinates[24];
 
     public void initStrategy4() {
@@ -19,16 +26,27 @@ public class Map {
             }
         }
     }
+     */
+
 
     public Map() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                field[i][j] = EMPTY;
+                myField[i][j] = EMPTY;
             }
         }
+
     }
 
-    public void print() {
+    public void printMyField() {
+        this.print(myField);
+    }
+
+    public void printEnemyField(){
+        print(enemyField);
+    }
+
+    public void print(int[][] field) {
         System.out.println("---------- start ---------");
         for (int i = 0; i < 10; i++) {
             System.out.print("\t" + i);
@@ -57,7 +75,7 @@ public class Map {
         for (int tryX = x-1; tryX <= x+1; tryX++) {
             for (int tryY = y-1; tryY <= y+1; tryY++) {
                 if(isInside(tryX,tryY)) {
-                    if (this.field[tryX][tryY] != 0) {
+                    if (this.myField[tryX][tryY] != 0) {
                         return false;
                     }
                 }
@@ -75,7 +93,7 @@ public class Map {
 
     private void fillCoordinates(Coordinates[] ship) {
         for(Coordinates eachShip: ship) {
-            this.field[eachShip.x][eachShip.y] = DECK;
+            this.myField[eachShip.x][eachShip.y] = DECK;
         }
     }
 
@@ -110,9 +128,9 @@ public class Map {
             this.setShip(1);
         }
         // ДЛЯ ТЕСТОВ
-        this.field[3][5] =1;
-        this.field[3][6] =1;
-        this.field[3][4] =1;
+        this.myField[3][5] =1;
+        this.myField[3][6] =1;
+        this.myField[3][4] =1;
        // this.field[3][3] =1;
 
     }
@@ -121,7 +139,7 @@ public class Map {
     //3. Метод отвечающий противнику на его выстрел "Мимо"-(0), "Ранен"-(1), "Убит"-(2),
     private int checkWhatInPlace(int x,int y){
         if(isInside(x,y)) {
-            return  this.field[x][y];
+            return  this.myField[x][y];
         }
         return 0;
     }
@@ -188,18 +206,7 @@ public class Map {
         else  {
             result = 1;
         }
-        /*
-        if (checkWhatInPlace(x + 1, y) == DECK ||
-                    checkWhatInPlace(x, y + 1) == DECK ||
-                    checkWhatInPlace(x - 1, y) == DECK ||
-                    checkWhatInPlace(x, y - 1) == DECK) {
-            result = 1;
-        } else {
-            result = 2; // если не мимо и не подбитых клеток нет - значит убит
-        }
-
-         */
-        field[shot[0]][shot[1]] = INJURED; // статус подбит
+        myField[shot[0]][shot[1]] = INJURED; // статус подбит
         return result;
 
     }
@@ -207,58 +214,40 @@ public class Map {
 
     //5. Метод возвращающий Ваше поле с кораблями после игры
     public  int[][] getMap() {
-        return this.field;
+        return this.myField;
+    }
+
+    // Метод определяющий стратегию поиска кораблей на чужом поле
+
+    public void initStrategy() {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) enemyField[i][j] = UNKNOWN;
+        }
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if ((i + j + 1) % 2 == 0) enemyField[i][j] = SEARCH2;
+            }
+        }
+
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if ((i + j + 1) % 34 == 0) enemyField[i][j] = SEARCH3;
+            }
+        }
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if ((i + j + 1) % 4 == 0) enemyField[i][j] = SEARCH4;
+            }
+        }
+
     }
 
 }
 
-    /*
-     private boolean isInside(int x, int y) {
-        return ((x >= 0 && x <=9) && (y >= 0 && y <=9));
-    }
 
-    private boolean checkPlace(int x, int y) {
-        for (int tryX = x-1; tryX <= x+1; tryX++) {
-            for (int tryY = y-1; tryY <= y+1; tryY++) {
-                if(isInside(tryX,tryY)) {
-                    if (this.coordinates[tryX][tryY] != 0) {
-                        return false;
-                    }
-                }
-            }
-        }
-        //this.coordinates[x][y] =1;
-        return true;
-    }
-
-    public void setShipOne() {
-        Random myRandom = new Random();
-        int x,y;
-        do {
-            x = myRandom.nextInt(10);
-            y = myRandom.nextInt(10);
-        } while(!checkPlace(x, y));
-        this.coordinates[x][y] = 1;
-    }
-
-    public void setShipTwo() {
-        Random myRandom = new Random();
-        int x,y,x1,y1;
-        boolean isHorizontal;
-        do {
-            x = myRandom.nextInt(10);
-            y = myRandom.nextInt(10);
-            isHorizontal = myRandom.nextBoolean();
-            x1 = x + (isHorizontal ? 1 : 0);
-            y1 = y + (isHorizontal ? 0 : 1);
-        } while( !checkPlace(x, y) || !checkPlace(x1 , y1)
-                || !isInside(x,y) || !isInside(x1,y1));
-        this.coordinates[x][y] = 1;
-        this.coordinates[x1][y1] = 1;
-    }
-
-
-     */
 
 
 
