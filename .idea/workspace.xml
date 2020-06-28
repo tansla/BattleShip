@@ -2,15 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ee7c58f-3094-4d30-9b47-57def83a8d14" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modul/RndShipsField.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modul/Strategy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BattleShip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BattleShip.iml" beforeDir="false" afterPath="$PROJECT_DIR$/BattleShip.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Coordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/Coordinates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/Field.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ship.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+        <option value="Kotlin File" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -59,25 +73,45 @@
       <option name="presentableId" value="Default" />
       <updated>1591875674029</updated>
     </task>
+    <task id="LOCAL-00001" summary="strategy map">
+      <created>1593352291607</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1593352291607</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="strategy map" />
+    <option name="LAST_COMMIT_MESSAGE" value="strategy map" />
+  </component>
   <component name="WindowStateProjectService">
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1593352189784">
+    <state x="342" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1593355453727">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593352189784" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1593352189782">
+    <state x="342" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1440.900@0.0.1440.900" timestamp="1593355453727" />
+    <state x="304" y="52" key="CommitChangelistDialog2" timestamp="1593352291295">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1593352189782" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1593352189781">
+    <state x="304" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1593352291295" />
+    <state width="1398" height="374" key="GridCell.Tab.0.bottom" timestamp="1593358089544">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1593352189781" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1593352189783">
+    <state width="1398" height="374" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593358089544" />
+    <state width="1398" height="374" key="GridCell.Tab.0.center" timestamp="1593358089542">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593352189783" />
+    <state width="1398" height="374" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1593358089542" />
+    <state width="1398" height="374" key="GridCell.Tab.0.left" timestamp="1593358089541">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="374" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1593358089541" />
+    <state width="1398" height="374" key="GridCell.Tab.0.right" timestamp="1593358089543">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="374" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593358089543" />
     <state width="1398" height="303" key="GridCell.Tab.1.bottom" timestamp="1593352079867">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -102,17 +136,17 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="397" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1593349952967" />
-    <state x="385" y="196" key="search.everywhere.popup" timestamp="1591875758011">
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1593352685949">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="385" y="196" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1591875758011" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1593352685949" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Application.java</url>
-          <line>35</line>
+          <line>11</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

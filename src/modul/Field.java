@@ -1,52 +1,26 @@
+package modul;
+
 import java.util.Random;
 
-public class Map {
+public class Field {
     //    private static int[][] field= new int[10][10];
-    public int[][] myField = new int[10][10];
-    public int[][] enemyField = new int[10][10];
-    private static final int EMPTY = 0;
-    private static final int DECK = 1;
-    private static final int INJURED = 2;
-    private static final int SEARCH4 = -4;
-    private static final int SEARCH3 = -3;
-    private static final int SEARCH2 = -2;
-    private static final int UNKNOWN = -1;
-
-    /*
-    static final Coordinates[] STRATEGY4 = new Coordinates[24];
-
-    public void initStrategy4() {
-        int k = 0;
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if ((i + j + 1) % 4 == 0) {
-                    STRATEGY4[k] = new Coordinates(i, j);
-                    k++;
-                }
-            }
-        }
-    }
-     */
+    protected int[][] myField = new int[10][10];
 
 
-    public Map() {
+    protected static final int EMPTY = 0;
+    protected static final int DECK = 1;
+    protected static final int INJURED = 2;
+
+    public Field() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 myField[i][j] = EMPTY;
             }
         }
-
     }
 
-    public void printMyField() {
-        this.print(myField);
-    }
 
-    public void printEnemyField(){
-        print(enemyField);
-    }
-
-    public void print(int[][] field) {
+    public void print() {
         System.out.println("---------- start ---------");
         for (int i = 0; i < 10; i++) {
             System.out.print("\t" + i);
@@ -55,7 +29,7 @@ public class Map {
         for (int i = 0; i < 10; i++) {
             System.out.print( i+" :");
             for (int j = 0; j < 10; j++) {
-                System.out.print("\t" + field[j][i]);
+                System.out.print("\t" + myField[j][i]);
             }
             System.out.println(":\t" + i);
         }
@@ -84,55 +58,17 @@ public class Map {
         return true;
     }
 
-    private boolean checkShip(Coordinates[] ship) {
+    protected boolean checkShip(Coordinates[] ship) {
         for (Coordinates eachShip: ship ) {
             if(!checkPlace(eachShip.x,eachShip.y) ) return false;
         }
         return true;
     }
 
-    private void fillCoordinates(Coordinates[] ship) {
+    protected void fillCoordinates(Coordinates[] ship) {
         for(Coordinates eachShip: ship) {
             this.myField[eachShip.x][eachShip.y] = DECK;
         }
-    }
-
-    public void setShip(int length) {
-        Random myRandom = new Random();
-        Coordinates[] ship = new Coordinates[length];
-        do {
-            int x = myRandom.nextInt(10);
-            int y = myRandom.nextInt(10);
-            boolean isHorizontal = myRandom.nextBoolean();
-            int coefficientHorizont  = (isHorizontal ? 1 : 0);
-            ship[0] = new Coordinates(x, y);
-            if(length >1) {
-                for (int i = 1; i < length; i++) {
-                    ship[i] = new Coordinates(x + i * coefficientHorizont , y+ i * (1 - coefficientHorizont));
-                }
-            }
-        } while(!checkShip(ship));
-        fillCoordinates(ship);
-    }
-
-    // 1. Метод расставляющий ваш флот на поле.
-    public void initMap() {
-        this.setShip(4);
-        for (int i=0; i<2;i++){
-            this.setShip(3);
-        }
-        for (int i=0; i<3;i++){
-            this.setShip(2);
-        }
-        for (int i=0; i<4;i++){
-            this.setShip(1);
-        }
-        // ДЛЯ ТЕСТОВ
-        this.myField[3][5] =1;
-        this.myField[3][6] =1;
-        this.myField[3][4] =1;
-       // this.field[3][3] =1;
-
     }
 
 
@@ -146,7 +82,7 @@ public class Map {
 
     private boolean isShipDown(int x, int y, boolean isHorizontal) {
         int shipLength = 1; // мы знаем что у нас подбит корабль и мы ищем остальные клетки
-        int shipPoints = 2; // тк текущая клетка подбита - сохраняем ее статус 2
+        int shipPoints = INJURED; // тк текущая клетка подбита - сохраняем ее статус 2
         if(isHorizontal) {
             // направо
             for(int i = 1; i <= 3; i++){
@@ -186,7 +122,7 @@ public class Map {
                 }
             }
         }
-        if(shipPoints == shipLength * 2) { // все клетки подбиты
+        if(shipPoints == shipLength * INJURED) { // все клетки подбиты
             return true;
         }
         return false;
@@ -195,8 +131,17 @@ public class Map {
     public int responseToShot(int[] shot ) {
         int result = 0;
         int x,y;
+        //todo check args
+        if (shot == null || shot.length != 2) {
+            throw new IllegalArgumentException();
+        }
+
         x = shot[0];
         y = shot[1];
+        if (!isInside(x,y)) {
+            throw new IllegalArgumentException();
+        }
+
         if (checkWhatInPlace(x,y) == EMPTY) {
             return 0;
         }
@@ -217,33 +162,8 @@ public class Map {
         return this.myField;
     }
 
-    // Метод определяющий стратегию поиска кораблей на чужом поле
-
-    public void initStrategy() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) enemyField[i][j] = UNKNOWN;
-        }
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if ((i + j + 1) % 2 == 0) enemyField[i][j] = SEARCH2;
-            }
-        }
 
 
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if ((i + j + 1) % 34 == 0) enemyField[i][j] = SEARCH3;
-            }
-        }
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if ((i + j + 1) % 4 == 0) enemyField[i][j] = SEARCH4;
-            }
-        }
-
-    }
 
 }
 

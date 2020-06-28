@@ -1,3 +1,5 @@
+package modul;
+
 public class Coordinates {
 
         int x;

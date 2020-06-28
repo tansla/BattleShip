@@ -1,44 +1,25 @@
+import modul.Field;
+import modul.RndShipsField;
+import modul.Strategy;
+
 public class Application {
 
     public static void main(String[] args) {
 
-        Map myMap = new Map();
+        RndShipsField myField = new RndShipsField();
 
-        /*
-
-        for(int i=0;i<10;i++) {
-            for (int j = 0; j < 10; j++) {
-                if ( (i+j+1)%4 ==0) {
-                    myMap.myField[j][i] = 4;
-                }
-            }
-        }
-
-        for(int i=0;i<10;i++) {
-            for (int j = 0; j < 10; j++) {
-                if ( (i+j+1)%3 ==0) {
-                    myMap.myField[j][i] = 3;
-                }
-            }
-        }
-
-        for(int i=0;i<10;i++) {
-            for (int j = 0; j < 10; j++) {
-                if ( (i+j+1)%2 ==0 ) {
-                    myMap.myField[j][i] = 2;
-                }
-            }
-        }
-
-
-         */
-        myMap.initMap();
-        myMap.printMyField();
+        myField.initMap();
+        myField.print();
 
         System.out.println("Enemy Field");
 
-        myMap.initStrategy();
-        myMap.printEnemyField();
+        Strategy strategy = new Strategy();
+
+        strategy.initStrategy();
+        strategy.print();
+
+
+
 
 
 
