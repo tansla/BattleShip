@@ -9,6 +9,7 @@ public class Strategy extends Field {
     private int strategyStage;
     private boolean isInjured;
 
+    protected static final int DEAD = 2;
     protected static final int SEARCH4 = -4;
     protected static final int SEARCH3 = -3;
     protected static final int SEARCH2 = -2;
@@ -93,27 +94,31 @@ public class Strategy extends Field {
                 lastSuccesShot = myShot;
                 setEmptyNextToInjuredCell(myShot);
                 break;
-            case INJURED:
+            case DEAD:
                 this.myField[myShot[0]][myShot[1]] = INJURED;
                 isInjured = false;
-                setEmptyNextToInjuredCell(myShot);
 
                 // check which ship is down
-                int lentghOfShip = Math.max(findWhichShipDown(myShot,true)
-                                            ,findWhichShipDown(myShot,false));
+                int lentghOfShipHorizontal = findWhichShipDown(myShot,true);
+                int lentghOfShipVertical = findWhichShipDown(myShot,false);
+                int lentghOfShip =  Math.max(lentghOfShipHorizontal,lentghOfShipVertical);
+
+                // add this info to the map type of ship - count of down ship
                 if(listOfShips.containsKey(lentghOfShip)) {
                     listOfShips.put(lentghOfShip,listOfShips.get(lentghOfShip) +1);
                 }
                 listOfShips.put(lentghOfShip,1);
 
                 // set EMPTY around dead ship
+                setEmptyNextToInjuredCell(myShot);
+
                 if (lentghOfShip == 1){
                     if(checkWhatInPlace(x-1,y) < 0) myField[x-1][y] = EMPTY;
                     if(checkWhatInPlace(x+1,y) < 0) myField[x+1][y] = EMPTY;
                     if(checkWhatInPlace(x,y+1) < 0) myField[x][y+1] = EMPTY;
                     if(checkWhatInPlace(x,y-1) < 0) myField[x][y-1] = EMPTY;
 
-                } else if(findWhichShipDown(myShot,true) > findWhichShipDown(myShot,false)) {
+                } else if(lentghOfShipHorizontal > lentghOfShipVertical) {
                     // horizontal ship
                     int i = x;
                     // to the right
