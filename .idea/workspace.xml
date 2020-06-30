@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ee7c58f-3094-4d30-9b47-57def83a8d14" name="Default Changelist" comment="">
+    <list default="true" id="1ee7c58f-3094-4d30-9b47-57def83a8d14" name="Default Changelist" comment="new Strategy - find the dead ship">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modul/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/Field.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modul/Strategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/Strategy.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,23 +87,31 @@
       <option name="project" value="LOCAL" />
       <updated>1593416628975</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="new Strategy - find the dead ship">
+      <created>1593514546109</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1593514546109</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="strategy map" />
     <MESSAGE value="new Strategy" />
-    <option name="LAST_COMMIT_MESSAGE" value="new Strategy" />
+    <MESSAGE value="new Strategy - find the dead ship" />
+    <option name="LAST_COMMIT_MESSAGE" value="new Strategy - find the dead ship" />
   </component>
   <component name="WindowStateProjectService">
     <state x="342" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1593355453727">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="342" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1440.900@0.0.1440.900" timestamp="1593355453727" />
-    <state x="304" y="52" key="CommitChangelistDialog2" timestamp="1593514491629">
+    <state x="304" y="52" key="CommitChangelistDialog2" timestamp="1593518500988">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="304" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1593514491629" />
+    <state x="304" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1593518500988" />
     <state width="1398" height="305" key="GridCell.Tab.0.bottom" timestamp="1593363626390">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

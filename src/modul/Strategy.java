@@ -5,6 +5,7 @@ import java.util.Map;
 public class Strategy extends Field {
 
     private int[] myShot = new int[2];
+    private int[] lastSuccesShot = new int[2];
     private int strategyStage;
     private boolean isInjured;
 
@@ -24,43 +25,53 @@ public class Strategy extends Field {
         if (isHorizontal) {
             // направо
             for (int i = 1; i <= 3; i++) {
-                if (checkWhatInPlace(x + i, y) == EMPTY) {
+                if (checkWhatInPlace(x + i, y) <= EMPTY) {
                     break;
                 } else {
                     shipLength++;
-                    shipPoints = shipPoints + checkWhatInPlace(x + i, y);
+                    shipPoints = shipPoints + Math.max(EMPTY,checkWhatInPlace(x + i, y));
                 }
             }
             //налево
             for (int i = 1; i <= 3; i++) {
-                if (checkWhatInPlace(x - i, y) == EMPTY) {
+                if (checkWhatInPlace(x - i, y) <= EMPTY) {
                     break;
                 } else {
                     shipLength++;
-                    shipPoints = shipPoints + checkWhatInPlace(x - i, y);
+                    shipPoints = shipPoints + Math.max(EMPTY,checkWhatInPlace(x - i, y));
                 }
             }
         } else {
             // вниз
             for(int i = 1; i <= 3; i++){
-                if(checkWhatInPlace(x ,y+i) == EMPTY) {
+                if(checkWhatInPlace(x ,y+i) <= EMPTY) {
                     break;
                 } else {
                     shipLength++;
-                    shipPoints = shipPoints + checkWhatInPlace(x , y+i);
+                    shipPoints = shipPoints + Math.max(EMPTY,checkWhatInPlace(x , y+i));
                 }
             }
             //вверх
             for(int i = 1; i <= 3; i++){
-                if(checkWhatInPlace(x ,y-i) == EMPTY) {
+                if(checkWhatInPlace(x ,y-i) <= EMPTY) {
                     break;
                 } else {
                     shipLength++;
-                    shipPoints = shipPoints + checkWhatInPlace(x , y -i);
+                    shipPoints = shipPoints + Math.max(EMPTY,checkWhatInPlace(x , y -i));
                 }
             }
         }
         return shipPoints/shipLength * INJURED;
+    }
+
+    private void setEmptyNextToInjuredCell(int[] myShot){
+        int x = myShot[0];
+        int y = myShot[1];
+        if(checkWhatInPlace(x-1,y-1) < 0) myField[x-1][y-1] = EMPTY;
+        if(checkWhatInPlace(x-1,y+1) < 0) myField[x-1][y+1] = EMPTY;
+        if(checkWhatInPlace(x+1,y+1) < 0) myField[x+1][y+1] = EMPTY;
+        if(checkWhatInPlace(x+1,y-1) < 0) myField[x+1][y-1] = EMPTY;
+
     }
 
 
@@ -70,31 +81,79 @@ public class Strategy extends Field {
         /*
         Входной параметр: shot - может принимать следующие значения : "Мимо"-(0), "Ранен"-(1), "Убит"-(2)
          */
+        int x = myShot[0];
+        int y = myShot[1];
         switch (shot){
             case EMPTY:
                 this.myField[myShot[0]][myShot[1]] = EMPTY;
-                isInjured = false;
                 break;
             case DECK:
                 this.myField[myShot[0]][myShot[1]] = INJURED;
                 isInjured = true;
+                lastSuccesShot = myShot;
+                setEmptyNextToInjuredCell(myShot);
                 break;
             case INJURED:
                 this.myField[myShot[0]][myShot[1]] = INJURED;
-                isInjured = true;
-                // todo: check which ship is down
+                isInjured = false;
+                setEmptyNextToInjuredCell(myShot);
+
+                // check which ship is down
                 int lentghOfShip = Math.max(findWhichShipDown(myShot,true)
                                             ,findWhichShipDown(myShot,false));
                 if(listOfShips.containsKey(lentghOfShip)) {
                     listOfShips.put(lentghOfShip,listOfShips.get(lentghOfShip) +1);
                 }
                 listOfShips.put(lentghOfShip,1);
+
+                // set EMPTY around dead ship
+                if (lentghOfShip == 1){
+                    if(checkWhatInPlace(x-1,y) < 0) myField[x-1][y] = EMPTY;
+                    if(checkWhatInPlace(x+1,y) < 0) myField[x+1][y] = EMPTY;
+                    if(checkWhatInPlace(x,y+1) < 0) myField[x][y+1] = EMPTY;
+                    if(checkWhatInPlace(x,y-1) < 0) myField[x][y-1] = EMPTY;
+
+                } else if(findWhichShipDown(myShot,true) > findWhichShipDown(myShot,false)) {
+                    // horizontal ship
+                    int i = x;
+                    // to the right
+                    do {
+                        i = i + 1;
+                        if (checkWhatInPlace(i,y) < EMPTY) {
+                            this.myField[i][y] = EMPTY;
+                        }
+                    } while (checkWhatInPlace(i,y) == INJURED);
+
+                    //to the left
+                    do {
+                        i = i - 1;
+                        if (checkWhatInPlace(i,y) < EMPTY) {
+                            this.myField[i][y] = EMPTY;
+                        }
+                    } while (checkWhatInPlace(i,y) == INJURED);
+                } else {
+                    // vertical ship
+                    // up
+                    int j = y;
+                    do {
+                        j = j + 1;
+                        if (checkWhatInPlace(x,j) < EMPTY) {
+                            this.myField[x][j] = EMPTY;
+                        }
+                    } while (checkWhatInPlace(x,j) == INJURED);
+
+                    //to the left
+                    do {
+                        j = j - 1;
+                        if (checkWhatInPlace(x,j) < EMPTY) {
+                            this.myField[x][j] = EMPTY;
+                        }
+                    } while (checkWhatInPlace(x,j) == INJURED);
+                }
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected value: " + shot);
         }
-        myShot[0] = 0;
-        myShot[1] = 0;
     }
 
     //todo MakeShot - Метод возвращающий координаты того места, куда вы хотите сделать выстрел.
