@@ -1,5 +1,6 @@
 package modul;
 
+import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 
 public class Strategy extends Field {
@@ -9,13 +10,14 @@ public class Strategy extends Field {
     private int strategyStage;
     private boolean isInjured;
 
+    private Map<Integer, Integer> listOfShips;
+
     protected static final int DEAD = 2;
     protected static final int SEARCH4 = -4;
     protected static final int SEARCH3 = -3;
     protected static final int SEARCH2 = -2;
     protected static final int UNKNOWN = -1;
 
-    private Map<Integer, Integer> listOfShips;
 
 
     private int findWhichShipDown(int[] myShot, boolean isHorizontal) {
@@ -161,18 +163,6 @@ public class Strategy extends Field {
         }
     }
 
-    //todo MakeShot - Метод возвращающий координаты того места, куда вы хотите сделать выстрел.
-    /*
-    Например, Вы стреляете в ячейку  5(строка) 3(столбец), тогда должен получиться массив,
-                                который заполнен так:
-                                myShot[0] = 3 - значение по X(номер столбца)
-                                myShot[1] = 5  - значение по Y(номер строки)
-     */
-    public int[] makeShot(){
-
-
-        return myShot;
-    }
 
 
     // Метод определяющий стратегию поиска кораблей на чужом поле
@@ -203,6 +193,87 @@ public class Strategy extends Field {
         }
 
     }
+
+    private int chooseStrategy(){
+       if (!listOfShips.containsKey(4)) return SEARCH4;
+       if (!listOfShips.containsKey(3)) return SEARCH3;
+       if (listOfShips.containsKey(3) && listOfShips.get(3) <2) return SEARCH3;
+       if (!listOfShips.containsKey(2)) return SEARCH2;
+       return UNKNOWN;
+    }
+
+    //todo MakeShot - Метод возвращающий координаты того места, куда вы хотите сделать выстрел.
+    /*
+    Например, Вы стреляете в ячейку  5(строка) 3(столбец), тогда должен получиться массив,
+                                который заполнен так:
+                                myShot[0] = 3 - значение по X(номер столбца)
+                                myShot[1] = 5  - значение по Y(номер строки)
+     */
+    public int[] makeShot(){
+        if(isInjured) {
+            // todo search next to cell
+            int x = lastSuccesShot[0];
+            int y = lastSuccesShot[1];
+            // looking right
+            int i = x;
+            do {
+                i = i + 1;
+                if (checkWhatInPlace(i,y) < EMPTY) {
+                    myShot[0] = i;
+                    myShot[1] = y;
+                    return myShot;
+                }
+            } while (checkWhatInPlace(i,y) == INJURED);
+
+            // looking left
+            do {
+                i = i - 1;
+                if (checkWhatInPlace(i,y) < EMPTY) {
+                    myShot[0] = i;
+                    myShot[1] = y;
+                    return myShot;
+                }
+            } while (checkWhatInPlace(i,y) == INJURED);
+
+            // looking up
+            int j = y;
+            do {
+                j = j + 1;
+                if (checkWhatInPlace(x,j) < EMPTY) {
+                    myShot[0] = x;
+                    myShot[1] = j;
+                    return myShot;
+                }
+            } while (checkWhatInPlace(i,y) == INJURED);
+
+            // looking down
+            do {
+                j = j - 1;
+                if (checkWhatInPlace(x,j) < EMPTY) {
+                    myShot[0] = x;
+                    myShot[1] = j;
+                    return myShot;
+                }
+            } while (checkWhatInPlace(i,y) == INJURED);
+
+
+        } else {
+            // looking for the next cell from the field
+            int myStrategy = chooseStrategy();
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    if(checkWhatInPlace(i,j) == myStrategy) {
+                        myShot[0] = i;
+                        myShot[1] = j;
+                    }
+                }
+            }
+
+        }
+
+        return myShot;
+    }
+
 
 
 }

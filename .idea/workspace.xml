@@ -101,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593519973929</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="set EMPTY around dead ships">
+      <created>1593521475767</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1593521475767</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -116,10 +123,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="342" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1440.900@0.0.1440.900" timestamp="1593355453727" />
-    <state x="304" y="52" key="CommitChangelistDialog2" timestamp="1593519973713">
+    <state x="304" y="52" key="CommitChangelistDialog2" timestamp="1593521475672">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="304" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1593519973713" />
+    <state x="304" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1593521475672" />
     <state width="1398" height="305" key="GridCell.Tab.0.bottom" timestamp="1593363626390">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
