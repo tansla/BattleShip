@@ -73,7 +73,7 @@ public class Field {
 
 
     //3. Метод отвечающий противнику на его выстрел "Мимо"-(0), "Ранен"-(1), "Убит"-(2),
-    private int checkWhatInPlace(int x,int y){
+    protected int checkWhatInPlace(int x, int y){
         if(isInside(x,y)) {
             return  this.myField[x][y];
         }
