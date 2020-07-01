@@ -1,5 +1,6 @@
 package modul;
 
+import java.util.HashMap;
 import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 
@@ -9,14 +10,44 @@ public class Strategy extends Field {
     private int[] lastSuccesShot = new int[2];
     private int strategyStage;
     private boolean isInjured;
+  //  private String name;
 
-    private Map<Integer, Integer> listOfShips;
+    private Map<Integer, Integer> listOfShips = new HashMap<>();
 
     protected static final int DEAD = 2;
     protected static final int SEARCH4 = -4;
     protected static final int SEARCH3 = -3;
     protected static final int SEARCH2 = -2;
     protected static final int UNKNOWN = -1;
+
+    // Метод определяющий стратегию поиска кораблей на чужом поле
+    public void initStrategy() {
+        strategyStage = SEARCH4;
+        isInjured = false;
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) myField[i][j] = UNKNOWN;
+        }
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if ((i + j + 1) % 2 == 0) myField[i][j] = SEARCH2;
+            }
+        }
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if ((i + j + 1) % 3 == 0) myField[i][j] = SEARCH3;
+            }
+        }
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if ((i + j + 1) % 4 == 0) myField[i][j] = SEARCH4;
+            }
+        }
+
+    }
 
 
 
@@ -64,7 +95,7 @@ public class Strategy extends Field {
                 }
             }
         }
-        return shipPoints/shipLength * INJURED;
+        return shipLength ;
     }
 
     private void setEmptyNextToInjuredCell(int[] myShot){
@@ -93,7 +124,8 @@ public class Strategy extends Field {
             case DECK:
                 this.myField[myShot[0]][myShot[1]] = INJURED;
                 isInjured = true;
-                lastSuccesShot = myShot;
+                lastSuccesShot[0] = myShot[0];
+                lastSuccesShot[1] = myShot[1];
                 setEmptyNextToInjuredCell(myShot);
                 break;
             case DEAD:
@@ -101,9 +133,9 @@ public class Strategy extends Field {
                 isInjured = false;
 
                 // check which ship is down
-                int lentghOfShipHorizontal = findWhichShipDown(myShot,true);
+                int lengthOfShipHorizontal = findWhichShipDown(myShot,true);
                 int lentghOfShipVertical = findWhichShipDown(myShot,false);
-                int lentghOfShip =  Math.max(lentghOfShipHorizontal,lentghOfShipVertical);
+                int lentghOfShip =  Math.max(lengthOfShipHorizontal,lentghOfShipVertical);
 
                 // add this info to the map type of ship - count of down ship
                 if(listOfShips.containsKey(lentghOfShip)) {
@@ -120,7 +152,7 @@ public class Strategy extends Field {
                     if(checkWhatInPlace(x,y+1) < 0) myField[x][y+1] = EMPTY;
                     if(checkWhatInPlace(x,y-1) < 0) myField[x][y-1] = EMPTY;
 
-                } else if(lentghOfShipHorizontal > lentghOfShipVertical) {
+                } else if(lengthOfShipHorizontal > lentghOfShipVertical) {
                     // horizontal ship
                     int i = x;
                     // to the right
@@ -165,34 +197,6 @@ public class Strategy extends Field {
 
 
 
-    // Метод определяющий стратегию поиска кораблей на чужом поле
-    public void initStrategy() {
-        strategyStage = SEARCH4;
-        isInjured = false;
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) myField[i][j] = UNKNOWN;
-        }
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if ((i + j + 1) % 2 == 0) myField[i][j] = SEARCH2;
-            }
-        }
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if ((i + j + 1) % 3 == 0) myField[i][j] = SEARCH3;
-            }
-        }
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if ((i + j + 1) % 4 == 0) myField[i][j] = SEARCH4;
-            }
-        }
-
-    }
 
     private int chooseStrategy(){
        if (!listOfShips.containsKey(4)) return SEARCH4;
@@ -202,60 +206,59 @@ public class Strategy extends Field {
        return UNKNOWN;
     }
 
-    //todo MakeShot - Метод возвращающий координаты того места, куда вы хотите сделать выстрел.
-    /*
-    Например, Вы стреляете в ячейку  5(строка) 3(столбец), тогда должен получиться массив,
+    /** MakeShot - Метод возвращающий координаты того места, куда вы хотите сделать выстрел.
+
+      Например, Вы стреляете в ячейку  5(строка) 3(столбец), тогда должен получиться массив,
                                 который заполнен так:
                                 myShot[0] = 3 - значение по X(номер столбца)
                                 myShot[1] = 5  - значение по Y(номер строки)
      */
     public int[] makeShot(){
         if(isInjured) {
-            // todo search next to cell
+            //  search next to cell
             int x = lastSuccesShot[0];
             int y = lastSuccesShot[1];
             // looking right
             int i = x;
-            do {
+            while (checkWhatInPlace(i,y) == INJURED) {
                 i = i + 1;
                 if (checkWhatInPlace(i,y) < EMPTY) {
                     myShot[0] = i;
                     myShot[1] = y;
                     return myShot;
                 }
-            } while (checkWhatInPlace(i,y) == INJURED);
+            }
 
             // looking left
-            do {
+            while (checkWhatInPlace(i,y) == INJURED) {
                 i = i - 1;
                 if (checkWhatInPlace(i,y) < EMPTY) {
                     myShot[0] = i;
                     myShot[1] = y;
                     return myShot;
                 }
-            } while (checkWhatInPlace(i,y) == INJURED);
+            }
 
             // looking up
             int j = y;
-            do {
+            while (checkWhatInPlace(x,j) == INJURED) {
                 j = j + 1;
                 if (checkWhatInPlace(x,j) < EMPTY) {
                     myShot[0] = x;
                     myShot[1] = j;
                     return myShot;
                 }
-            } while (checkWhatInPlace(i,y) == INJURED);
+            }
 
             // looking down
-            do {
+            while (checkWhatInPlace(x,j) == INJURED) {
                 j = j - 1;
                 if (checkWhatInPlace(x,j) < EMPTY) {
                     myShot[0] = x;
                     myShot[1] = j;
                     return myShot;
                 }
-            } while (checkWhatInPlace(i,y) == INJURED);
-
+            }
 
         } else {
             // looking for the next cell from the field
@@ -263,8 +266,10 @@ public class Strategy extends Field {
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     if(checkWhatInPlace(i,j) == myStrategy) {
+                        //todo change strategy for UNKNOWN
                         myShot[0] = i;
                         myShot[1] = j;
+                        return myShot;
                     }
                 }
             }

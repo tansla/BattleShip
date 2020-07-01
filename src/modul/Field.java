@@ -20,8 +20,8 @@ public class Field {
     }
 
 
-    public void print() {
-        System.out.println("---------- start ---------");
+    public void print(String title) {
+        System.out.println("---------- "+title+" start ---------");
         for (int i = 0; i < 10; i++) {
             System.out.print("\t" + i);
         }
@@ -29,15 +29,29 @@ public class Field {
         for (int i = 0; i < 10; i++) {
             System.out.print( i+" :");
             for (int j = 0; j < 10; j++) {
-                System.out.print("\t" + myField[j][i]);
+                String printValue;
+                switch (myField[j][i]) {
+                    case 0:
+                        printValue = " . ";  // Пусто
+                        break;
+                    case 1:
+                        printValue = "[+]";  // Палуба
+                        break;
+                    case 2:
+                        printValue = "{X}";  // Подбитая палуба
+                        break;
+                    default:
+                        printValue = String.valueOf(myField[j][i]);
+                }
+                System.out.print("\t" + printValue);
             }
-            System.out.println(":\t" + i);
+            System.out.println(" :\t" + i);
         }
         for (int i = 0; i < 10; i++) {
             System.out.print("\t" + i);
         }
         System.out.println();
-        System.out.println("----------- end ----------");
+        System.out.println("----------- "+title+" end ----------");
     }
 
     private boolean isInside(int x, int y) {
@@ -72,7 +86,7 @@ public class Field {
     }
 
 
-    //3. Метод отвечающий противнику на его выстрел "Мимо"-(0), "Ранен"-(1), "Убит"-(2),
+    /** 3. Метод отвечающий противнику на его выстрел "Мимо"-(0), "Ранен"-(1), "Убит"-(2), */
     protected int checkWhatInPlace(int x, int y){
         if(isInside(x,y)) {
             return  this.myField[x][y];
@@ -122,7 +136,8 @@ public class Field {
                 }
             }
         }
-        if(shipPoints == shipLength * INJURED) { // все клетки подбиты
+
+        if (shipPoints == shipLength * INJURED) { // все клетки подбиты
             return true;
         }
         return false;
@@ -131,7 +146,7 @@ public class Field {
     public int responseToShot(int[] shot ) {
         int result = 0;
         int x,y;
-        //todo check args
+        // check args
         if (shot == null || shot.length != 2) {
             throw new IllegalArgumentException();
         }

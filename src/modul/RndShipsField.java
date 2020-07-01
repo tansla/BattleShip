@@ -35,11 +35,6 @@ public class RndShipsField extends Field {
         for (int i=0; i<4;i++){
             this.setShip(1);
         }
-        // ДЛЯ ТЕСТОВ
-        this.myField[3][5] =1;
-        this.myField[3][6] =1;
-        this.myField[3][4] =1;
-        // this.field[3][3] =1;
 
     }
 
