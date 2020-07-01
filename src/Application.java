@@ -34,7 +34,7 @@ public class Application {
             int[] shotPlayerOne = playerOneEnemyField.makeShot();
             int shotResult = playerTwoField.responseToShot(shotPlayerOne);
             playerOneEnemyField.shotProcessing(shotResult);
-            System.out.println(shotPlayerOne[0]+ "-"+shotPlayerOne[1] + " result " +shotResult);
+            System.out.println("step "+ i + ":"+ shotPlayerOne[0]+ "-"+shotPlayerOne[1] + " result " +shotResult);
             //System.out.println("---------- playerOneEnemyField ---------");
             playerOneEnemyField.print("playerOneEnemyField");
 

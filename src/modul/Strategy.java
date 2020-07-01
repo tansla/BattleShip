@@ -201,7 +201,7 @@ public class Strategy extends Field {
     private int chooseStrategy(){
        if (!listOfShips.containsKey(4)) return SEARCH4;
        if (!listOfShips.containsKey(3)) return SEARCH3;
-       if (listOfShips.containsKey(3) && listOfShips.get(3) <2) return SEARCH3;
+       if (listOfShips.containsKey(3) && listOfShips.get(3) <2) return SEARCH2;
        if (!listOfShips.containsKey(2)) return SEARCH2;
        return UNKNOWN;
     }
@@ -230,6 +230,7 @@ public class Strategy extends Field {
             }
 
             // looking left
+            i = x;
             while (checkWhatInPlace(i,y) == INJURED) {
                 i = i - 1;
                 if (checkWhatInPlace(i,y) < EMPTY) {
@@ -251,6 +252,7 @@ public class Strategy extends Field {
             }
 
             // looking down
+            j=y;
             while (checkWhatInPlace(x,j) == INJURED) {
                 j = j - 1;
                 if (checkWhatInPlace(x,j) < EMPTY) {
@@ -263,10 +265,24 @@ public class Strategy extends Field {
         } else {
             // looking for the next cell from the field
             int myStrategy = chooseStrategy();
+
+            // полный перебор клеток - что осталось
+            if(myStrategy == UNKNOWN) {
+                for (int i = 0; i < 10; i++) {
+                    for (int j = 0; j < 10; j++) {
+                        if(myField[i][j] < EMPTY){
+                            myShot[0] = i;
+                            myShot[1] = j;
+                            return myShot;
+                        }
+                    }
+                }
+            }
+
+            //наибольшая вероятность поиска 4-3-2
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     if(checkWhatInPlace(i,j) == myStrategy) {
-                        //todo change strategy for UNKNOWN
                         myShot[0] = i;
                         myShot[1] = j;
                         return myShot;
