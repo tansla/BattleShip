@@ -1,7 +1,6 @@
 package modul;
 
 import java.util.HashMap;
-import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 
 public class Strategy extends Field {
@@ -18,32 +17,34 @@ public class Strategy extends Field {
     protected static final int SEARCH4 = -4;
     protected static final int SEARCH3 = -3;
     protected static final int SEARCH2 = -2;
-    protected static final int UNKNOWN = -1;
+//    protected static final int UNKNOWN = -1;
 
     // Метод определяющий стратегию поиска кораблей на чужом поле
     public void initStrategy() {
         strategyStage = SEARCH4;
         isInjured = false;
 
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) myField[i][j] = UNKNOWN;
-        }
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if ((i + j + 1) % 2 == 0) myField[i][j] = SEARCH2;
+        for (int i = 0; i < FIELD_LENGTH; i++) {
+            for (int j = 0; j < FIELD_LENGTH; j++) {
+                setCellValue(i,j, UNKNOWN);
             }
         }
 
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if ((i + j + 1) % 3 == 0) myField[i][j] = SEARCH3;
+        for (int i = 0; i < FIELD_LENGTH; i++) {
+            for (int j = 0; j < FIELD_LENGTH; j++) {
+                if ((i + j + 1) % 2 == 0) setCellValue(i,j, SEARCH2);
             }
         }
 
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if ((i + j + 1) % 4 == 0) myField[i][j] = SEARCH4;
+        for (int i = 0; i < FIELD_LENGTH; i++) {
+            for (int j = 0; j < FIELD_LENGTH; j++) {
+                if ((i + j + 1) % 3 == 0) setCellValue(i,j, SEARCH3);
+            }
+        }
+
+        for (int i = 0; i < FIELD_LENGTH; i++) {
+            for (int j = 0; j < FIELD_LENGTH; j++) {
+                if ((i + j + 1) % 4 == 0) setCellValue(i,j, SEARCH4);
             }
         }
 
@@ -55,43 +56,38 @@ public class Strategy extends Field {
         int x = myShot[0];
         int y = myShot[1];
         int shipLength = 1; // мы знаем что у нас подбит корабль и мы ищем остальные клетки
-        int shipPoints = checkWhatInPlace(x, y); // тк текущая клетка подбита - сохраняем ее статус
         if (isHorizontal) {
             // направо
             for (int i = 1; i <= 3; i++) {
-                if (checkWhatInPlace(x + i, y) <= EMPTY) {
+                if (getCellValue(x + i, y) <= EMPTY) {
                     break;
                 } else {
                     shipLength++;
-                    shipPoints = shipPoints + Math.max(EMPTY,checkWhatInPlace(x + i, y));
                 }
             }
             //налево
             for (int i = 1; i <= 3; i++) {
-                if (checkWhatInPlace(x - i, y) <= EMPTY) {
+                if (getCellValue(x - i, y) <= EMPTY) {
                     break;
                 } else {
                     shipLength++;
-                    shipPoints = shipPoints + Math.max(EMPTY,checkWhatInPlace(x - i, y));
                 }
             }
         } else {
             // вниз
             for(int i = 1; i <= 3; i++){
-                if(checkWhatInPlace(x ,y+i) <= EMPTY) {
+                if(getCellValue(x ,y+i) <= EMPTY) {
                     break;
                 } else {
                     shipLength++;
-                    shipPoints = shipPoints + Math.max(EMPTY,checkWhatInPlace(x , y+i));
                 }
             }
             //вверх
             for(int i = 1; i <= 3; i++){
-                if(checkWhatInPlace(x ,y-i) <= EMPTY) {
+                if(getCellValue(x ,y-i) <= EMPTY) {
                     break;
                 } else {
                     shipLength++;
-                    shipPoints = shipPoints + Math.max(EMPTY,checkWhatInPlace(x , y -i));
                 }
             }
         }
@@ -101,10 +97,10 @@ public class Strategy extends Field {
     private void setEmptyNextToInjuredCell(int[] myShot){
         int x = myShot[0];
         int y = myShot[1];
-        if(checkWhatInPlace(x-1,y-1) < 0) myField[x-1][y-1] = EMPTY;
-        if(checkWhatInPlace(x-1,y+1) < 0) myField[x-1][y+1] = EMPTY;
-        if(checkWhatInPlace(x+1,y+1) < 0) myField[x+1][y+1] = EMPTY;
-        if(checkWhatInPlace(x+1,y-1) < 0) myField[x+1][y-1] = EMPTY;
+        if(getCellValue(x-1,y-1) < 0) setCellValue(x-1,y-1, EMPTY);
+        if(getCellValue(x-1,y+1) < 0) setCellValue(x-1,y+1, EMPTY);
+        if(getCellValue(x+1,y+1) < 0) setCellValue(x+1,y+1, EMPTY);
+        if(getCellValue(x+1,y-1) < 0) setCellValue(x+1,y-1, EMPTY);
 
     }
 
@@ -119,17 +115,17 @@ public class Strategy extends Field {
         int y = myShot[1];
         switch (shot){
             case EMPTY:
-                this.myField[myShot[0]][myShot[1]] = EMPTY;
+                setCellValue(myShot[0],myShot[1],EMPTY);
                 break;
-            case DECK:
-                this.myField[myShot[0]][myShot[1]] = INJURED;
+            case DECK_UNTOUCHED:
+                setCellValue(myShot[0],myShot[1], DECK_HIT);
                 isInjured = true;
                 lastSuccesShot[0] = myShot[0];
                 lastSuccesShot[1] = myShot[1];
                 setEmptyNextToInjuredCell(myShot);
                 break;
             case DEAD:
-                this.myField[myShot[0]][myShot[1]] = INJURED;
+                setCellValue(myShot[0],myShot[1], DECK_HIT);
                 isInjured = false;
 
                 // check which ship is down
@@ -147,10 +143,10 @@ public class Strategy extends Field {
                 setEmptyNextToInjuredCell(myShot);
 
                 if (lentghOfShip == 1){
-                    if(checkWhatInPlace(x-1,y) < 0) myField[x-1][y] = EMPTY;
-                    if(checkWhatInPlace(x+1,y) < 0) myField[x+1][y] = EMPTY;
-                    if(checkWhatInPlace(x,y+1) < 0) myField[x][y+1] = EMPTY;
-                    if(checkWhatInPlace(x,y-1) < 0) myField[x][y-1] = EMPTY;
+                    if(getCellValue(x-1,y) < 0) setCellValue(x-1,y,  EMPTY);
+                    if(getCellValue(x+1,y) < 0) setCellValue(x+1,y, EMPTY);
+                    if(getCellValue(x,y+1) < 0) setCellValue(x,y+1, EMPTY);
+                    if(getCellValue(x,y-1) < 0) setCellValue(x,y-1, EMPTY);
 
                 } else if(lengthOfShipHorizontal > lentghOfShipVertical) {
                     // horizontal ship
@@ -158,36 +154,36 @@ public class Strategy extends Field {
                     // to the right
                     do {
                         i = i + 1;
-                        if (checkWhatInPlace(i,y) < EMPTY) {
-                            this.myField[i][y] = EMPTY;
+                        if (getCellValue(i,y) < EMPTY) {
+                            setCellValue(i,y, EMPTY);
                         }
-                    } while (checkWhatInPlace(i,y) == INJURED);
+                    } while (getCellValue(i,y) == DECK_HIT);
 
                     //to the left
                     do {
                         i = i - 1;
-                        if (checkWhatInPlace(i,y) < EMPTY) {
-                            this.myField[i][y] = EMPTY;
+                        if (getCellValue(i,y) < EMPTY) {
+                            setCellValue(i,y, EMPTY);
                         }
-                    } while (checkWhatInPlace(i,y) == INJURED);
+                    } while (getCellValue(i,y) == DECK_HIT);
                 } else {
                     // vertical ship
                     // up
                     int j = y;
                     do {
                         j = j + 1;
-                        if (checkWhatInPlace(x,j) < EMPTY) {
-                            this.myField[x][j] = EMPTY;
+                        if (getCellValue(x,j) < EMPTY) {
+                            setCellValue(x,j, EMPTY);
                         }
-                    } while (checkWhatInPlace(x,j) == INJURED);
+                    } while (getCellValue(x,j) == DECK_HIT);
 
                     //to the left
                     do {
                         j = j - 1;
-                        if (checkWhatInPlace(x,j) < EMPTY) {
-                            this.myField[x][j] = EMPTY;
+                        if (getCellValue(x,j) < EMPTY) {
+                            setCellValue(x,j,EMPTY);
                         }
-                    } while (checkWhatInPlace(x,j) == INJURED);
+                    } while (getCellValue(x,j) == DECK_HIT);
                 }
                 break;
             default:
@@ -220,9 +216,9 @@ public class Strategy extends Field {
             int y = lastSuccesShot[1];
             // looking right
             int i = x;
-            while (checkWhatInPlace(i,y) == INJURED) {
+            while (getCellValue(i,y) == DECK_HIT) {
                 i = i + 1;
-                if (checkWhatInPlace(i,y) < EMPTY) {
+                if (getCellValue(i,y) < EMPTY) {
                     myShot[0] = i;
                     myShot[1] = y;
                     return myShot;
@@ -231,9 +227,9 @@ public class Strategy extends Field {
 
             // looking left
             i = x;
-            while (checkWhatInPlace(i,y) == INJURED) {
+            while (getCellValue(i,y) == DECK_HIT) {
                 i = i - 1;
-                if (checkWhatInPlace(i,y) < EMPTY) {
+                if (getCellValue(i,y) < EMPTY) {
                     myShot[0] = i;
                     myShot[1] = y;
                     return myShot;
@@ -242,9 +238,9 @@ public class Strategy extends Field {
 
             // looking up
             int j = y;
-            while (checkWhatInPlace(x,j) == INJURED) {
+            while (getCellValue(x,j) == DECK_HIT) {
                 j = j + 1;
-                if (checkWhatInPlace(x,j) < EMPTY) {
+                if (getCellValue(x,j) < EMPTY) {
                     myShot[0] = x;
                     myShot[1] = j;
                     return myShot;
@@ -253,9 +249,9 @@ public class Strategy extends Field {
 
             // looking down
             j=y;
-            while (checkWhatInPlace(x,j) == INJURED) {
+            while (getCellValue(x,j) == DECK_HIT) {
                 j = j - 1;
-                if (checkWhatInPlace(x,j) < EMPTY) {
+                if (getCellValue(x,j) < EMPTY) {
                     myShot[0] = x;
                     myShot[1] = j;
                     return myShot;
@@ -270,7 +266,7 @@ public class Strategy extends Field {
             if(myStrategy == UNKNOWN) {
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 10; j++) {
-                        if(myField[i][j] < EMPTY){
+                        if(getCellValue(i,j)  < EMPTY){
                             myShot[0] = i;
                             myShot[1] = j;
                             return myShot;
@@ -279,10 +275,10 @@ public class Strategy extends Field {
                 }
             }
 
-            //наибольшая вероятность поиска 4-3-2
+            // поиск 4-3-2
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
-                    if(checkWhatInPlace(i,j) == myStrategy) {
+                    if(getCellValue(i,j) == myStrategy) {
                         myShot[0] = i;
                         myShot[1] = j;
                         return myShot;
