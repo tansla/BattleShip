@@ -1,9 +1,10 @@
 package modul;
 
 public class Field {
-    private int[][] field = new int[10][10];
 
     protected static final int FIELD_LENGTH = 10;
+
+    private final int[][] field = new int[FIELD_LENGTH][FIELD_LENGTH];
 
     protected static final int UNKNOWN = -1;
     protected static final int EMPTY = 0;
@@ -31,7 +32,7 @@ public class Field {
     }
 
     //5. Метод возвращающий Ваше поле с кораблями после игры
-    public  int[][] getMap() {
+    public int[][] getMap() {
         return this.field;
     }
 
@@ -47,13 +48,13 @@ public class Field {
             for (int j = 0; j < FIELD_LENGTH; j++) {
                 String printValue;
                 switch (field[j][i]) {
-                    case 0:
+                    case EMPTY:
                         printValue = " . ";  // Пусто
                         break;
-                    case 1:
+                    case DECK_UNTOUCHED:
                         printValue = "[+]";  // Палуба
                         break;
-                    case 2:
+                    case DECK_HIT:
                         printValue = "{X}";  // Подбитая палуба
                         break;
                     default:

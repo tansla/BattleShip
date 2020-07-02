@@ -4,32 +4,36 @@ import java.util.Random;
 
 public class RndShipsField extends Field {
 
+    private final Random myRandom = new Random();
 
     public void setShip(int length) {
-        Random myRandom = new Random();
         Coordinates[] ship = new Coordinates[length];
         do {
-            int x = myRandom.nextInt(10);
-            int y = myRandom.nextInt(10);
+            int x = myRandom.nextInt(FIELD_LENGTH);
+            int y = myRandom.nextInt(FIELD_LENGTH);
             boolean isHorizontal = myRandom.nextBoolean();
-            int coefficientHorizont  = (isHorizontal ? 1 : 0);
+            int coefficientHorizon  = (isHorizontal ? 1 : 0);
             ship[0] = new Coordinates(x, y);
-            if(length >1) {
-                for (int i = 1; i < length; i++) {
-                    ship[i] = new Coordinates(x + i * coefficientHorizont , y+ i * (1 - coefficientHorizont));
-                }
+            for (int i = 1; i < length; i++) {
+                ship[i] = new Coordinates(x + i * coefficientHorizon, y+ i * (1 - coefficientHorizon));
             }
-        } while(!checkShip(ship));
+        } while (!checkShip(ship));
+
         fillCoordinates(ship);
     }
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @return true = можно поставить корабль
+     */
     private boolean checkPlace(int x, int y) {
         if (!isInside(x,y)) return false;
         for (int tryX = x-1; tryX <= x+1; tryX++) {
             for (int tryY = y-1; tryY <= y+1; tryY++) {
-                if(isInside(tryX,tryY)) {
-                    if (this.getCellValue(tryX,tryY) != 0) {
-                        return false;
-                    }
+                if (this.getCellValue(tryX,tryY) != EMPTY && isInside(tryX,tryY)) {
+                    return false;
                 }
             }
         }
@@ -71,14 +75,19 @@ public class RndShipsField extends Field {
 
     }
 
-    /** 3. Метод отвечающий противнику на его выстрел "Мимо"-(0), "Ранен"-(1), "Убит"-(2), */
+    /** 3. Метод отвечающий противнику на его выстрел "Мимо"-(0), "Ранен"-(1), "Убит"-(2),
+     * @param x
+     * @param y
+     * @param isHorizontal
+     * @return 0 = Мимо; 1 = Ранен; 2 = Убит
+     */
     private boolean isShipDown(int x, int y, boolean isHorizontal) {
         int shipLength = 1; // мы знаем что у нас подбит корабль и мы ищем остальные клетки
         int shipPoints = DECK_HIT; // тк текущая клетка подбита - сохраняем ее статус 2
         if(isHorizontal) {
             // направо
             for(int i = 1; i <= 3; i++){
-                if(getCellValue(x +i,y) == EMPTY) {
+                if(getCellValue(x + i, y) == EMPTY) {
                     break;
                 } else {
                     shipLength++;
@@ -87,7 +96,7 @@ public class RndShipsField extends Field {
             }
             //налево
             for(int i = 1; i <= 3; i++){
-                if(getCellValue(x -i,y) == EMPTY) {
+                if(getCellValue(x - i, y) == EMPTY) {
                     break;
                 } else {
                     shipLength++;
@@ -97,20 +106,20 @@ public class RndShipsField extends Field {
         } else {
             // вниз
             for(int i = 1; i <= 3; i++){
-                if(getCellValue(x ,y+i) == EMPTY) {
+                if(getCellValue(x,y + i) == EMPTY) {
                     break;
                 } else {
                     shipLength++;
-                    shipPoints = shipPoints + getCellValue(x , y+i);
+                    shipPoints = shipPoints + getCellValue(x , y + i);
                 }
             }
             //вверх
             for(int i = 1; i <= 3; i++){
-                if(getCellValue(x ,y-i) == EMPTY) {
+                if(getCellValue(x,y - i) == EMPTY) {
                     break;
                 } else {
                     shipLength++;
-                    shipPoints = shipPoints + getCellValue(x , y -i);
+                    shipPoints = shipPoints + getCellValue(x, y - i);
                 }
             }
         }
