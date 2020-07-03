@@ -11,24 +11,28 @@ public class Field {
     protected static final int DECK_UNTOUCHED = 1;
     protected static final int DECK_HIT = 2;
 
-    protected boolean isInside(int x, int y) {
-        return ((x >= 0 && x < FIELD_LENGTH) && (y >= 0 && y < FIELD_LENGTH));
+    protected static final int SHIP_DOWN = 2;
+    protected static final int SHIP_INJURED = 1;
+
+
+    protected boolean isInside(Coordinate c) {
+        return ((c.getX() >= 0 && c.getX() < FIELD_LENGTH) && (c.getY() >= 0 && c.getY() < FIELD_LENGTH));
     }
 
-    protected void setCellValue(int x, int y ,int value){
-        if(!isInside(x,y)) {
-            throw new IllegalArgumentException("Coordinates outside the Field");
+    protected void setCellValue(Coordinate c , int value){
+        if(!isInside(c)) {
+            throw new IllegalArgumentException("Coordinates outside the Field" + c.getX()+"-"+c.getY());
         }
-        field[x][y] = value;
+        field[c.getX()][c.getY()] = value;
 
     }
 
-    protected int getCellValue(int x, int y){
-        if(!isInside(x,y)) {
+    protected int getCellValue(Coordinate c){
+        if(!isInside(c)) {
            return 0;
             // throw new IllegalArgumentException("Coordinates outside the Field");
         }
-        return  this.field[x][y];
+        return  this.field[c.getX()][c.getY()];
     }
 
     //5. Метод возвращающий Ваше поле с кораблями после игры

@@ -1,40 +1,45 @@
-import modul.Field;
-import modul.RndShipsField;
-import modul.Strategy;
-
-import java.lang.management.PlatformLoggingMXBean;
+import modul.MyRandomShips;
+import modul.EnemyShips;
 
 public class Application {
 
     public static void main(String[] args) {
 
-        RndShipsField playerOneField = new RndShipsField();
-        RndShipsField playerTwoField = new RndShipsField();
+        MyRandomShips playerOneField = new MyRandomShips();
+        MyRandomShips playerTwoField = new MyRandomShips();
 
         playerOneField.initMap();
         playerTwoField.initMap();
 
-        Strategy playerOneEnemyField = new Strategy();
-        Strategy playerTwoEnemyField = new Strategy();
+        EnemyShips playerOneEnemyShips = new EnemyShips();
+        EnemyShips playerTwoEnemyShips = new EnemyShips();
 
-        playerOneEnemyField.initStrategy();
-        playerTwoEnemyField.initStrategy();
+        playerOneEnemyShips.initStrategy();
+        playerTwoEnemyShips.initStrategy();
+
 
         playerTwoField.print("playerTwoField");
-        playerOneEnemyField.print("playerOneEnemyField");
+        //playerOneEnemyShips.print("playerOneEnemyField");
 
 
-
-        for(int i =0; i < 50; i++) {
-            // Player One
-            int[] shotPlayerOne = playerOneEnemyField.makeShot();
-            int shotResult = playerTwoField.responseToShot(shotPlayerOne);
-            playerOneEnemyField.shotProcessing(shotResult);
-            System.out.println("step "+ i + ":"+ shotPlayerOne[0]+ "-"+shotPlayerOne[1] + " result " +shotResult);
-            playerOneEnemyField.print("playerOneEnemyField");
-
+        try {
+            for(int j=0;j<100;j++) {
+                for (int i = 0; i < 50; i++) {
+                    // Player One
+                    int[] shotPlayerOne = playerOneEnemyShips.makeShot();
+                    int shotResult = playerTwoField.responseToShot(shotPlayerOne);
+                    playerOneEnemyShips.shotProcessing(shotResult);
+                    System.out.println(j + "step " + i + ":" + shotPlayerOne[0] + "-" + shotPlayerOne[1] + " result " + shotResult);
+                    if (i == 49) {
+                        playerOneEnemyShips.print("playerOneEnemyField");
+                    }
         }
 
+        }
+    } catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
 
     }
 }
