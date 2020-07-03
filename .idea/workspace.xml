@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ee7c58f-3094-4d30-9b47-57def83a8d14" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/modul/Coordinate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modul/MyRandomShips.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modul/Coordinates.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modul/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/Field.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modul/RndShipsField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modul/Strategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/EnemyShips.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modul/EnemyShips.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/EnemyShips.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modul/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/BaseField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modul/MyRandomShips.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/MyRandomShips.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +162,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593708052802</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="1. x,y =&gt; Coordinate&#10;2. Changed name of methods&#10;3. Optimized code in EnemyShips">
+      <created>1593795683940</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1593795683940</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -179,9 +183,14 @@
     <MESSAGE value="Basic version" />
     <MESSAGE value="Refactoring&#10;1. some from field to RndShipsField&#10;2. Change names in Field&#10;3. Added get and set for Cell Values" />
     <MESSAGE value="+ something from Fedor" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ something from Fedor" />
+    <MESSAGE value="1. x,y =&gt; Coordinate&#10;2. Changed name of methods&#10;3. Optimized code in EnemyShips" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. x,y =&gt; Coordinate&#10;2. Changed name of methods&#10;3. Optimized code in EnemyShips" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="320" y="115" key="#Project_Settings" timestamp="1593796249933">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="320" y="115" key="#Project_Settings/0.0.1440.900@0.0.1440.900" timestamp="1593796249933" />
     <state x="533" y="158" key="#com.intellij.ide.util.MemberChooser" timestamp="1593758678907">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -198,26 +207,26 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="966" y="321" key="#xdebugger.evaluate/0.0.1440.900@0.0.1440.900" timestamp="1593783552911" />
-    <state x="304" y="51" key="CommitChangelistDialog2" timestamp="1593795559280">
+    <state x="304" y="51" key="CommitChangelistDialog2" timestamp="1593795683713">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="304" y="51" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1593795559280" />
-    <state width="1398" height="243" key="GridCell.Tab.0.bottom" timestamp="1593795525116">
+    <state x="304" y="51" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1593795683713" />
+    <state width="1398" height="284" key="GridCell.Tab.0.bottom" timestamp="1593796664073">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="243" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593795525116" />
-    <state width="1398" height="243" key="GridCell.Tab.0.center" timestamp="1593795525115">
+    <state width="1398" height="284" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593796664073" />
+    <state width="1398" height="284" key="GridCell.Tab.0.center" timestamp="1593796664072">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="243" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1593795525115" />
-    <state width="1398" height="243" key="GridCell.Tab.0.left" timestamp="1593795525114">
+    <state width="1398" height="284" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1593796664072" />
+    <state width="1398" height="284" key="GridCell.Tab.0.left" timestamp="1593796664072">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="243" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1593795525114" />
-    <state width="1398" height="243" key="GridCell.Tab.0.right" timestamp="1593795525115">
+    <state width="1398" height="284" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1593796664072" />
+    <state width="1398" height="284" key="GridCell.Tab.0.right" timestamp="1593796664073">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="243" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593795525115" />
+    <state width="1398" height="284" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593796664073" />
     <state width="1398" height="260" key="GridCell.Tab.1.bottom" timestamp="1593785784757">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -260,18 +269,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>156</line>
+          <line>145</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>149</line>
+          <line>138</line>
           <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>98</line>
-          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

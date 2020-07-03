@@ -1,6 +1,6 @@
 package modul;
 
-public class Field {
+public class BaseField {
 
     protected static final int FIELD_LENGTH = 10;
 
@@ -30,7 +30,6 @@ public class Field {
     protected int getCellValue(Coordinate c){
         if(!isInside(c)) {
            return 0;
-            // throw new IllegalArgumentException("Coordinates outside the Field");
         }
         return  this.field[c.getX()][c.getY()];
     }

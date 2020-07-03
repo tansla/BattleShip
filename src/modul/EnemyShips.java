@@ -3,11 +3,10 @@ package modul;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EnemyShips extends Field {
+public class EnemyShips extends BaseField {
 
     private  Coordinate myShot;
     private Coordinate lastSuccesShot;
-    private int strategyStage;
     private boolean isInjured;
 
     private Map<Integer, Integer> listOfShips = new HashMap<>();
@@ -19,7 +18,6 @@ public class EnemyShips extends Field {
 
     // Метод определяющий стратегию поиска кораблей на чужом поле
     public void initStrategy() {
-        strategyStage = SEARCH4;
         isInjured = false;
 
         for (int i = 0; i < FIELD_LENGTH; i++) {
@@ -28,24 +26,18 @@ public class EnemyShips extends Field {
             }
         }
 
+        generateGrid(2,SEARCH2);
+        generateGrid(3,SEARCH3);
+        generateGrid(4,SEARCH4);
+
+    }
+
+    private void generateGrid(int step, int value) {
         for (int i = 0; i < FIELD_LENGTH; i++) {
             for (int j = 0; j < FIELD_LENGTH; j++) {
-                if ((i + j + 1) % 2 == 0) setCellValue(new Coordinate(i,j), SEARCH2);
+                if ((i + j + 1) % step == 0) setCellValue(new Coordinate(i,j), value);
             }
         }
-
-        for (int i = 0; i < FIELD_LENGTH; i++) {
-            for (int j = 0; j < FIELD_LENGTH; j++) {
-                if ((i + j + 1) % 3 == 0) setCellValue(new Coordinate(i,j), SEARCH3);
-            }
-        }
-
-        for (int i = 0; i < FIELD_LENGTH; i++) {
-            for (int j = 0; j < FIELD_LENGTH; j++) {
-                if ((i + j + 1) % 4 == 0) setCellValue(new Coordinate(i,j), SEARCH4);
-            }
-        }
-
     }
 
 
@@ -140,9 +132,6 @@ public class EnemyShips extends Field {
         /*
         Входной параметр: shot - может принимать следующие значения : "Мимо"-(0), "Ранен"-(1), "Убит"-(2)
          */
-     //   Coordinate c = new Coordinate(myShot[0],myShot[1]);
-//        int x = myShot[0];
-//        int y = myShot[1];
         switch (shot){
             case EMPTY:
                 setCellValue(myShot,EMPTY);

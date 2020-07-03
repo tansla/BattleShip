@@ -2,12 +2,12 @@ package modul;
 
 import java.util.Random;
 
-public class MyRandomShips extends Field {
+public class MyRandomShips extends BaseField {
 
+    private final Random myRandom = new Random();
 
     public void setShip(int length) {
         Coordinate[] ship = new Coordinate[length];
-        Random myRandom = new Random();
 
         do {
             int x = myRandom.nextInt(FIELD_LENGTH);
@@ -117,10 +117,8 @@ public class MyRandomShips extends Field {
             }
         }
 
-        if (shipPoints == shipLength * DECK_HIT) { // все клетки подбиты
-            return true;
-        }
-        return false;
+        return shipPoints == shipLength * DECK_HIT;
+
     }
 
     public int responseToShot(int[] shot ) {
@@ -132,13 +130,7 @@ public class MyRandomShips extends Field {
         }
 
         Coordinate c = new Coordinate(shot[0],shot[1]);
-/*
-        if (!isInside(c)) {
-            throw new IllegalArgumentException();
-        }
 
-
- */
         if (getCellValue(c) == EMPTY) {
             return EMPTY;
         } else {

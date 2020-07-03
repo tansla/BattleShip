@@ -19,8 +19,9 @@ public class Application {
 
 
         playerTwoField.print("playerTwoField");
-        //playerOneEnemyShips.print("playerOneEnemyField");
+        playerOneEnemyShips.print("playerOneEnemyField");
 
+        /*
 
         try {
             for(int j=0;j<100;j++) {
@@ -41,6 +42,8 @@ public class Application {
 
         }
 
+         */
     }
+
 }
 
