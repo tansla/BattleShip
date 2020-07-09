@@ -19,17 +19,18 @@ public class Application {
                 EnemyShips playerEnemyShips = new EnemyShips();
                 playerEnemyShips.initStrategy();
                 playerField.print("Initial");
+                //playerEnemyShips.print("Initial");
 
                 for (int i = 0; i < 50; i++) {
                     // Player One
                     int[] shotPlayerOne = playerEnemyShips.makeShot();
                     int shotResult = playerField.responseToShot(shotPlayerOne);
-                    playerEnemyShips.shotProcessing(shotResult);
 
                     System.out.println(j + ".step " + i + ":" + shotPlayerOne[0] + "-" + shotPlayerOne[1] + " result " + shotResult);
-                    if (i == 49) {
+
+                    playerEnemyShips.shotProcessing(shotResult);
                         playerEnemyShips.print("playerOneEnemyField");
-                    }
+
 
 
         }

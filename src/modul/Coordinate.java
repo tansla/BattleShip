@@ -69,7 +69,7 @@ public class Coordinate {
          x * *
          */
         public Coordinate getLeftDown(){
-                return new Coordinate(x+1,y-1);
+                return new Coordinate(x-1,y+1);
         }
         /**
          * * x
@@ -77,7 +77,7 @@ public class Coordinate {
          * * *
          */
         public Coordinate getRightUp(){
-                return new Coordinate(x+1,y+1);
+                return new Coordinate(x+1,y-1);
         }
         /**
          * * *
@@ -85,7 +85,7 @@ public class Coordinate {
          * * x
          */
         public Coordinate getRightDown(){
-                return new Coordinate(x+1,y-1);
+                return new Coordinate(x+1,y+1);
         }
 
 }
