@@ -278,6 +278,7 @@ public class EnemyShips extends BaseField {
                             listForSearch4.remove(0);
                             return new int[]{myShot.getX(), myShot.getY()};
                         }
+                        listForSearch4.remove(0);
                     }
                 case SEARCH3:
                     while (!listForSearch3.isEmpty()){
@@ -287,6 +288,7 @@ public class EnemyShips extends BaseField {
                             listForSearch3.remove(0);
                             return new int[]{myShot.getX(), myShot.getY()};
                         }
+                        listForSearch3.remove(0);
                     }
 
                 case SEARCH2:
@@ -297,6 +299,7 @@ public class EnemyShips extends BaseField {
                             listForSearch2.remove(0);
                             return new int[]{myShot.getX(), myShot.getY()};
                         }
+                        listForSearch2.remove(0);
                     }
 
                 default:
