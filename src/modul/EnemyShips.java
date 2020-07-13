@@ -209,41 +209,15 @@ public class EnemyShips extends BaseField {
     public int[] makeShot() {
 
         if (isInjured) {
-            Coordinate nextShotCandidate = lookForNextUnknownCell(lastSuccessShot, RIGHT);
-            if(nextShotCandidate != null) {
-                myShot = nextShotCandidate;
-                return new int[]{myShot.getX(), myShot.getY()};
+            Direction[] straightDirections = {RIGHT,DOWN,LEFT,UP};
+            for (Direction d : straightDirections) {
+
+                Coordinate nextShotCandidate = lookForNextUnknownCell(lastSuccessShot, d);
+                if(nextShotCandidate != null) {
+                    myShot = nextShotCandidate;
+                    return new int[]{myShot.getX(), myShot.getY()};
+                }
             }
-
-
-            // looking left
-            myShot = new Coordinate(lastSuccessShot.getX(), lastSuccessShot.getY());
-            do {
-                myShot = myShot.getLeft();
-                if (getCellValue(myShot) < EMPTY) {
-                    return new int[]{myShot.getX(), myShot.getY()};
-                }
-
-            } while (getCellValue(myShot) > EMPTY);
-
-            // looking up
-            myShot = new Coordinate(lastSuccessShot.getX(), lastSuccessShot.getY());
-            do {
-                myShot = myShot.getUp();
-                if (getCellValue(myShot) < EMPTY) {
-                    return new int[]{myShot.getX(), myShot.getY()};
-                }
-
-            } while (getCellValue(myShot) > EMPTY);
-
-            // looking down
-            myShot = new Coordinate(lastSuccessShot.getX(), lastSuccessShot.getY());
-            do {
-                myShot = myShot.getDown();
-                if (getCellValue(myShot) < EMPTY) {
-                    return new int[]{myShot.getX(), myShot.getY()};
-                }
-            } while (getCellValue(myShot) > EMPTY);
 
         } else {
             // looking for the next cell from the field
