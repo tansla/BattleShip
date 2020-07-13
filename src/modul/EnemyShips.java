@@ -65,7 +65,6 @@ public class EnemyShips extends BaseField {
     }
 
     private int findWhichShipDown(Coordinate c, boolean isHorizontal) {
-        Coordinate copyC = new Coordinate(c.getX(),c.getY());
         int shipLength = 1; // мы знаем что у нас подбит корабль и мы ищем остальные клетки
         if (isHorizontal) {
             shipLength +=calcShipLengthByDirection(c,RIGHT);
