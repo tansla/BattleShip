@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ee7c58f-3094-4d30-9b47-57def83a8d14" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/modul/Direction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modul/Coordinate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/Coordinate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modul/EnemyShips.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/EnemyShips.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,6 +19,7 @@
         <option value="Kotlin Class" />
         <option value="Kotlin File" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -187,7 +191,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594306036482</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="fixed bag in infinity loop in Strategy">
+      <created>1594307660058</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1594307660058</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -204,17 +215,18 @@
     <MESSAGE value="1. x,y =&gt; Coordinate&#10;2. Changed name of methods&#10;3. Optimized code in EnemyShips" />
     <MESSAGE value="new Strategy - lists" />
     <MESSAGE value="fixed bag in getters in Coordinate" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bag in getters in Coordinate" />
+    <MESSAGE value="fixed bag in infinity loop in Strategy" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bag in infinity loop in Strategy" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="115" key="#Project_Settings" timestamp="1593796249933">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="320" y="115" key="#Project_Settings/0.0.1440.900@0.0.1440.900" timestamp="1593796249933" />
-    <state x="533" y="158" key="#com.intellij.ide.util.MemberChooser" timestamp="1593758678907">
+    <state x="533" y="158" key="#com.intellij.ide.util.MemberChooser" timestamp="1594310589277">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="533" y="158" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1593758678907" />
+    <state x="533" y="158" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1594310589277" />
     <state x="436" y="166" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1593701318815">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -223,46 +235,46 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="342" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1440.900@0.0.1440.900" timestamp="1593773861927" />
-    <state x="966" y="321" key="#xdebugger.evaluate" timestamp="1593783552911">
+    <state x="966" y="321" key="#xdebugger.evaluate" timestamp="1594313349119">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="966" y="321" key="#xdebugger.evaluate/0.0.1440.900@0.0.1440.900" timestamp="1593783552911" />
-    <state x="304" y="51" key="CommitChangelistDialog2" timestamp="1594306036279">
+    <state x="966" y="321" key="#xdebugger.evaluate/0.0.1440.900@0.0.1440.900" timestamp="1594313349119" />
+    <state x="304" y="51" key="CommitChangelistDialog2" timestamp="1594307659884">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="304" y="51" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1594306036279" />
-    <state width="1398" height="393" key="GridCell.Tab.0.bottom" timestamp="1594307620063">
+    <state x="304" y="51" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1594307659884" />
+    <state width="1398" height="263" key="GridCell.Tab.0.bottom" timestamp="1594550215866">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="393" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1594307620063" />
-    <state width="1398" height="393" key="GridCell.Tab.0.center" timestamp="1594307620062">
+    <state width="1398" height="263" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1594550215866" />
+    <state width="1398" height="263" key="GridCell.Tab.0.center" timestamp="1594550215865">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="393" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1594307620062" />
-    <state width="1398" height="393" key="GridCell.Tab.0.left" timestamp="1594307620062">
+    <state width="1398" height="263" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1594550215865" />
+    <state width="1398" height="263" key="GridCell.Tab.0.left" timestamp="1594550215864">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="393" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1594307620062" />
-    <state width="1398" height="393" key="GridCell.Tab.0.right" timestamp="1594307620063">
+    <state width="1398" height="263" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1594550215864" />
+    <state width="1398" height="263" key="GridCell.Tab.0.right" timestamp="1594550215865">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="393" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1594307620063" />
-    <state width="1398" height="393" key="GridCell.Tab.1.bottom" timestamp="1594307620066">
+    <state width="1398" height="263" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1594550215865" />
+    <state width="1398" height="292" key="GridCell.Tab.1.bottom" timestamp="1594550143062">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="393" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1594307620066" />
-    <state width="1398" height="393" key="GridCell.Tab.1.center" timestamp="1594307620064">
+    <state width="1398" height="292" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1594550143062" />
+    <state width="1398" height="292" key="GridCell.Tab.1.center" timestamp="1594550143061">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="393" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1594307620064" />
-    <state width="1398" height="393" key="GridCell.Tab.1.left" timestamp="1594307620064">
+    <state width="1398" height="292" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1594550143061" />
+    <state width="1398" height="292" key="GridCell.Tab.1.left" timestamp="1594550143061">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="393" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1594307620064" />
-    <state width="1398" height="393" key="GridCell.Tab.1.right" timestamp="1594307620065">
+    <state width="1398" height="292" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1594550143061" />
+    <state width="1398" height="292" key="GridCell.Tab.1.right" timestamp="1594550143062">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="393" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1594307620065" />
+    <state width="1398" height="292" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1594550143062" />
     <state x="208" y="31" key="SettingsEditor" timestamp="1593625864646">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -271,14 +283,18 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="397" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1593625975266" />
+    <state x="655" y="391" width="542" height="452" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1594548067537">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="655" y="391" width="542" height="452" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1440.900@0.0.1440.900" timestamp="1594548067537" />
     <state x="458" y="224" key="extract.method.dialog" timestamp="1593765748738">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="458" y="224" key="extract.method.dialog/0.0.1440.900@0.0.1440.900" timestamp="1593765748738" />
-    <state x="482" y="63" key="refactoring.ChangeSignatureDialog" timestamp="1593765182270">
+    <state x="482" y="63" key="refactoring.ChangeSignatureDialog" timestamp="1594309406773">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="482" y="63" key="refactoring.ChangeSignatureDialog/0.0.1440.900@0.0.1440.900" timestamp="1593765182269" />
+    <state x="482" y="63" key="refactoring.ChangeSignatureDialog/0.0.1440.900@0.0.1440.900" timestamp="1594309406773" />
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1593785971740">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -289,28 +305,38 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>336</line>
+          <line>316</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>304</line>
+          <line>284</line>
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>293</line>
+          <line>273</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>282</line>
+          <line>262</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>272</line>
+          <line>252</line>
           <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
+          <line>213</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
+          <line>199</line>
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -321,6 +347,7 @@
         <watch expression="shipCount" language="JAVA" />
         <watch expression="getCellValue(new Coordinate(i,j)) " language="JAVA" />
         <watch expression="c.getLeftDown()" />
+        <watch expression="getCellValue(newCoordinate)" />
       </configuration>
     </watches-manager>
   </component>

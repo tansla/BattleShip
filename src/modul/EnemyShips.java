@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.List;
 
+import static modul.Direction.*;
+
 public class EnemyShips extends BaseField {
 
     private  Coordinate myShot;
@@ -16,9 +18,6 @@ public class EnemyShips extends BaseField {
     private List<Coordinate> listForSearch4 = new LinkedList<>();
     private List<Coordinate> listForSearch3 = new LinkedList<>();
     private List<Coordinate> listForSearch2 = new LinkedList<>();
-
-
-
 
     protected static final int SEARCH4 = -4;
     protected static final int SEARCH3 = -3;
@@ -38,13 +37,6 @@ public class EnemyShips extends BaseField {
         listForSearch3 = generateStrategy(3);
         listForSearch2 = generateStrategy(2);
 
-
-       // generateGrid(2,SEARCH2);
-       // generateGrid(3,SEARCH3);
-       // generateGrid(4,SEARCH4);
-
-
-
     }
 
     private List generateStrategy(int step) {
@@ -58,19 +50,6 @@ public class EnemyShips extends BaseField {
         }
         return listForSearch;
     }
-
-    private void generateGrid(int step, int value) {
-
-        for (int i = 0; i < FIELD_LENGTH; i++) {
-            for (int j = 0; j < FIELD_LENGTH; j++) {
-                if ((i + j + 1) % step == 0) setCellValue(new Coordinate(i,j), value);
-            }
-        }
-    }
-
-
-
-
 
     private int findWhichShipDown(Coordinate c, boolean isHorizontal) {
         Coordinate copyC = new Coordinate(c.getX(),c.getY());
@@ -120,6 +99,13 @@ public class EnemyShips extends BaseField {
         setCellValueWithCheck(c.getRightDown(), EMPTY, EMPTY);
     }
 
+    private void setEmptyToDirection(Coordinate c, Direction d){
+        do {
+            c = c.getNextTo(d);
+            setCellValueWithCheck(c, EMPTY, EMPTY);
+        } while (getCellValue(c) == DECK_HIT);
+    }
+
     private void setEmptyAroundDeadShip(Coordinate c, int length, boolean isHorizontal) {
 
         if (length == 1){
@@ -130,31 +116,14 @@ public class EnemyShips extends BaseField {
 
         } else if(isHorizontal) {
             // horizontal ship
-            Coordinate copyC = new Coordinate(c.getX(),c.getY());
-            // to the right
-            do {
-                c = c.getRight();
-                setCellValueWithCheck(c, EMPTY, EMPTY);
-            } while (getCellValue(c) == DECK_HIT);
-            //to the left
-            do {
-                copyC = copyC.getLeft();
-                setCellValueWithCheck(copyC, EMPTY, EMPTY);
-            } while (getCellValue(copyC) == DECK_HIT);
+            setEmptyToDirection(c, RIGHT);
+            setEmptyToDirection(c, Direction.LEFT);
 
         } else {
-            // vertical ship
-            Coordinate copyC = new Coordinate(c.getX(),c.getY());
-            // up
-            do {
-                c = c.getUp();
-                setCellValueWithCheck(c, EMPTY, EMPTY);
-            } while (getCellValue(c) == DECK_HIT);
-            //down
-            do {
-                copyC = copyC.getDown();
-                setCellValueWithCheck(copyC, EMPTY, EMPTY);
-            } while (getCellValue(copyC) == DECK_HIT);
+
+            setEmptyToDirection(c, Direction.UP);
+            setEmptyToDirection(c, Direction.DOWN);
+
         }
 
     }
@@ -224,18 +193,29 @@ public class EnemyShips extends BaseField {
                                 myShot[0] = 3 - значение по X(номер столбца)
                                 myShot[1] = 5  - значение по Y(номер строки)
      */
+
+    private Coordinate lookForNextUnknownCell(Coordinate c, Direction d) {
+        int cellValue;
+        do {
+            c = c.getNextTo(d);
+            cellValue = getCellValue(c);
+            if (cellValue < EMPTY) {
+                return c;
+            }
+        } while (cellValue > EMPTY);
+        return null;
+    }
+
     public int[] makeShot() {
 
         if (isInjured) {
-            //  search next to cell
-            // looking right
-            myShot = new Coordinate(lastSuccessShot.getX(), lastSuccessShot.getY());
-            do {
-                myShot = myShot.getRight();
-                if (getCellValue(myShot) < EMPTY) {
-                    return new int[]{myShot.getX(), myShot.getY()};
-                }
-            } while (getCellValue(myShot) > EMPTY);
+            Coordinate nextShotCandidate = lookForNextUnknownCell(lastSuccessShot, RIGHT);
+            if(nextShotCandidate != null) {
+                myShot = nextShotCandidate;
+                return new int[]{myShot.getX(), myShot.getY()};
+            }
+
+
             // looking left
             myShot = new Coordinate(lastSuccessShot.getX(), lastSuccessShot.getY());
             do {

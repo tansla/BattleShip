@@ -19,6 +19,18 @@ public class Coordinate {
                 return y;
         }
 
+        public Coordinate getNextTo(Direction d){
+                return new Coordinate(this.x + d.getX(), this.y + d.getY());
+        }
+
+        @Override
+        public String toString() {
+                return "Coordinate{" +
+                        "x=" + x +
+                        ", y=" + y +
+                        '}';
+        }
+
         //крест вокруг клетки
         /**
          * * *

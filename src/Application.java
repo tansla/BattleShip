@@ -1,5 +1,9 @@
-import modul.MyRandomShips;
+import modul.Coordinate;
+import modul.Direction;
 import modul.EnemyShips;
+import modul.MyRandomShips;
+
+import static modul.Direction.*;
 
 public class Application {
 
@@ -18,7 +22,7 @@ public class Application {
                 playerField.initMap();
                 EnemyShips playerEnemyShips = new EnemyShips();
                 playerEnemyShips.initStrategy();
-                playerField.print("Initial");
+                playerField.print("Initial: " + j);
                 //playerEnemyShips.print("Initial");
 
                 for (int i = 0; i < 50; i++) {
@@ -26,14 +30,15 @@ public class Application {
                     int[] shotPlayerOne = playerEnemyShips.makeShot();
                     int shotResult = playerField.responseToShot(shotPlayerOne);
 
-                    System.out.println(j + ".step " + i + ":" + shotPlayerOne[0] + "-" + shotPlayerOne[1] + " result " + shotResult);
+                   System.out.println(j + ".step " + i + ":" + shotPlayerOne[0] + "-" + shotPlayerOne[1] + " result " + shotResult);
 
                     playerEnemyShips.shotProcessing(shotResult);
-                        playerEnemyShips.print("playerOneEnemyField");
+                    playerEnemyShips.print("playerOneEnemyField");
 
 
 
-        }
+                }
+                playerEnemyShips.print("playerOneEnemyField");
                 System.out.println(playerEnemyShips.getListOfDeadShips());
         }
     } catch (Exception e){
@@ -41,6 +46,8 @@ public class Application {
             e.printStackTrace();
 
         }
+
+
 
 
     }
