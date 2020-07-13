@@ -19,6 +19,9 @@ public class EnemyShips extends BaseField {
     private List<Coordinate> listForSearch3 = new LinkedList<>();
     private List<Coordinate> listForSearch2 = new LinkedList<>();
 
+    private final Direction[] straightDirections = {RIGHT,DOWN,LEFT,UP};
+
+
     protected static final int SEARCH4 = -4;
     protected static final int SEARCH3 = -3;
     protected static final int SEARCH2 = -2;
@@ -51,31 +54,25 @@ public class EnemyShips extends BaseField {
         return listForSearch;
     }
 
+    private int calcShipLengthByDirection(Coordinate c,Direction d){
+        int shipLength =0;
+        while (getCellValue(c.getNextTo(d)) == DECK_HIT) {
+            shipLength++;
+            c = c.getNextTo(d);
+        }
+        return shipLength;
+
+    }
+
     private int findWhichShipDown(Coordinate c, boolean isHorizontal) {
         Coordinate copyC = new Coordinate(c.getX(),c.getY());
         int shipLength = 1; // мы знаем что у нас подбит корабль и мы ищем остальные клетки
         if (isHorizontal) {
-            // направо
-            while (getCellValue(c.getRight()) == DECK_HIT) {
-                shipLength++;
-                c = c.getRight();
-            }
-            //налево
-            while (getCellValue(copyC.getLeft()) == DECK_HIT) {
-                shipLength++;
-                copyC = copyC.getLeft();
-            }
+            shipLength +=calcShipLengthByDirection(c,RIGHT);
+            shipLength +=calcShipLengthByDirection(c,LEFT);
         } else {
-            // вниз
-            while (getCellValue(c.getDown()) == DECK_HIT) {
-                shipLength++;
-                c = c.getDown();
-            }
-            //вверх
-            while (getCellValue(copyC.getUp()) == DECK_HIT) {
-                shipLength++;
-                copyC = copyC.getUp();
-            }
+            shipLength +=calcShipLengthByDirection(c,DOWN);
+            shipLength +=calcShipLengthByDirection(c,UP);
         }
         return shipLength ;
     }
@@ -109,23 +106,17 @@ public class EnemyShips extends BaseField {
     private void setEmptyAroundDeadShip(Coordinate c, int length, boolean isHorizontal) {
 
         if (length == 1){
-            setCellValueWithCheck(c.getRight(), EMPTY, EMPTY);
-            setCellValueWithCheck(c.getLeft(), EMPTY, EMPTY);
-            setCellValueWithCheck(c.getUp(), EMPTY, EMPTY);
-            setCellValueWithCheck(c.getDown(), EMPTY, EMPTY);
-
+            for(Direction d:straightDirections) {
+                setCellValueWithCheck(c.getNextTo(d),EMPTY,EMPTY);
+            }
         } else if(isHorizontal) {
             // horizontal ship
             setEmptyToDirection(c, RIGHT);
-            setEmptyToDirection(c, Direction.LEFT);
-
+            setEmptyToDirection(c, LEFT);
         } else {
-
-            setEmptyToDirection(c, Direction.UP);
-            setEmptyToDirection(c, Direction.DOWN);
-
+            setEmptyToDirection(c, UP);
+            setEmptyToDirection(c, DOWN);
         }
-
     }
 
 
@@ -209,16 +200,13 @@ public class EnemyShips extends BaseField {
     public int[] makeShot() {
 
         if (isInjured) {
-            Direction[] straightDirections = {RIGHT,DOWN,LEFT,UP};
             for (Direction d : straightDirections) {
-
                 Coordinate nextShotCandidate = lookForNextUnknownCell(lastSuccessShot, d);
                 if(nextShotCandidate != null) {
                     myShot = nextShotCandidate;
                     return new int[]{myShot.getX(), myShot.getY()};
                 }
             }
-
         } else {
             // looking for the next cell from the field
             int myStrategy = chooseStrategy();
@@ -267,27 +255,6 @@ public class EnemyShips extends BaseField {
                     }
 
             }
-
-
-            // полный перебор клеток - что осталось
-
-
-
-            /*
-            // поиск 4-3-2
-            for (int i = 0; i < 10; i++) {
-                for (int j = 0; j < 10; j++) {
-                    if(getCellValue(new Coordinate(i,j)) == myStrategy) {
-                        myShot = new Coordinate(i,j);
-                        return new int[]{myShot.getX(), myShot.getY()};
-                    }
-                }
-            }
-
-        }
-
-             */
-
 
         }
         return new int[]{0, 0};

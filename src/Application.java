@@ -30,10 +30,10 @@ public class Application {
                     int[] shotPlayerOne = playerEnemyShips.makeShot();
                     int shotResult = playerField.responseToShot(shotPlayerOne);
 
-                   System.out.println(j + ".step " + i + ":" + shotPlayerOne[0] + "-" + shotPlayerOne[1] + " result " + shotResult);
+                  // System.out.println(j + ".step " + i + ":" + shotPlayerOne[0] + "-" + shotPlayerOne[1] + " result " + shotResult);
 
                     playerEnemyShips.shotProcessing(shotResult);
-                    playerEnemyShips.print("playerOneEnemyField");
+                    //playerEnemyShips.print("playerOneEnemyField");
 
 
 
