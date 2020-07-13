@@ -54,14 +54,13 @@ public class EnemyShips extends BaseField {
         return listForSearch;
     }
 
-    private int calcShipLengthByDirection(Coordinate c,Direction d){
+    private int calcShipLengthByDirection(Coordinate c, Direction d){
         int shipLength =0;
         while (getCellValue(c.getNextTo(d)) == DECK_HIT) {
             shipLength++;
             c = c.getNextTo(d);
         }
         return shipLength;
-
     }
 
     private int findWhichShipDown(Coordinate c, boolean isHorizontal) {
