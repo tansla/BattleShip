@@ -1,6 +1,9 @@
 package modul;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import static modul.Direction.*;
 
 public class MyRandomShips extends BaseField {
 
@@ -33,15 +36,10 @@ public class MyRandomShips extends BaseField {
      */
     private boolean isCellAvailable(Coordinate c) {
         if (!isInside(c)) return false;
-        if(getCellValue(c.getLeft())!= EMPTY && isInside(c.getLeft())) return false;
-        if(getCellValue(c.getLeftUp())!= EMPTY && isInside(c.getLeftUp())) return false;
-        if(getCellValue(c.getUp())!= EMPTY && isInside(c.getUp())) return false;
-        if(getCellValue(c.getRightUp())!= EMPTY && isInside(c.getRightUp())) return false;
-        if(getCellValue(c.getRight())!= EMPTY && isInside(c.getRight())) return false;
-        if(getCellValue(c.getRightDown())!= EMPTY && isInside(c.getRightDown())) return false;
-        if(getCellValue(c.getDown())!= EMPTY && isInside(c.getDown())) return false;
-        if(getCellValue(c.getLeftDown())!= EMPTY && isInside(c.getLeftDown())) return false;
-
+        for(Direction d:Direction.values()) {
+            if(findCellValue(c.findNextToByDirection(d))!= EMPTY
+                    && isInside(c.findNextToByDirection(d))) return false;
+        }
         return true;
     }
 
@@ -80,45 +78,43 @@ public class MyRandomShips extends BaseField {
 
     }
 
+    private int[] calcShipPointsByDirection(Coordinate c,Direction d){
+        int[] shipPoints = new int[2];
+        while (findCellValue(c.findNextToByDirection(d)) != EMPTY) {
+            c = c.findNextToByDirection(d);
+            shipPoints[0]++;
+            shipPoints[1] = shipPoints[1] + findCellValue(c);
+        }
+        return shipPoints;
+    }
+
+
+
     /** 3. Метод отвечающий противнику на его выстрел "Мимо"-(0), "Ранен"-(1), "Убит"-(2),
      * @param c
      * @param isHorizontal
      * @return 0 = Мимо; 1 = Ранен; 2 = Убит
      */
     private boolean isShipDown(Coordinate c, boolean isHorizontal) {
-        int shipLength = 1; // мы знаем что у нас подбита палуба
-        int shipPoints = getCellValue(c); // тк текущая клетка подбита - сохраняем ее статус 2
-        Coordinate copyC = new Coordinate(c.getX(),c.getY());
+        int[] shipPoints = new int[2];
+        int[] tmpShipPoints;
+        shipPoints[0] = 1;
+        shipPoints[1] = findCellValue(c);
         if(isHorizontal) {
             // направо
-            while (getCellValue(c.getRight()) != EMPTY) {
-                c = c.getRight();
-                shipLength++;
-                shipPoints = shipPoints + getCellValue(c);
-                }
-            //налево
-            while (getCellValue(copyC.getLeft()) != EMPTY) {
-                copyC = copyC.getLeft();
-                shipLength++;
-                shipPoints = shipPoints + getCellValue(copyC);
+            for (Direction d:new Direction[] {RIGHT,LEFT}) {
+                tmpShipPoints = calcShipPointsByDirection(c,d);
+                shipPoints[0] += tmpShipPoints[0];
+                shipPoints[1] += tmpShipPoints[1];
             }
         } else {
-            // вниз
-            while (getCellValue(c.getDown()) != EMPTY) {
-                c = c.getDown();
-                shipLength++;
-                shipPoints = shipPoints + getCellValue(c);
-            }
-            //вверх
-            while (getCellValue(copyC.getUp()) != EMPTY) {
-                copyC = copyC.getUp();
-                shipLength++;
-                shipPoints = shipPoints + getCellValue(copyC);
+            for (Direction d:new Direction[] {DOWN,UP}) {
+                tmpShipPoints = calcShipPointsByDirection(c,d);
+                shipPoints[0] += tmpShipPoints[0];
+                shipPoints[1] += tmpShipPoints[1];
             }
         }
-
-        return shipPoints == shipLength * DECK_HIT;
-
+        return shipPoints[1] == shipPoints[0] * DECK_HIT;
     }
 
     public int responseToShot(int[] shot ) {
@@ -131,7 +127,7 @@ public class MyRandomShips extends BaseField {
 
         Coordinate c = new Coordinate(shot[0],shot[1]);
 
-        if (getCellValue(c) == EMPTY) {
+        if (findCellValue(c) == EMPTY) {
             return EMPTY;
         } else {
             this.setCellValue(c,DECK_HIT); // статус подбит

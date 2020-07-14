@@ -19,7 +19,7 @@ public class Coordinate {
                 return y;
         }
 
-        public Coordinate getNextTo(Direction d){
+        public Coordinate findNextToByDirection(Direction d){
                 return new Coordinate(this.x + d.getX(), this.y + d.getY());
         }
 

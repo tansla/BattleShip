@@ -27,7 +27,7 @@ public class BaseField {
 
     }
 
-    protected int getCellValue(Coordinate c){
+    protected int findCellValue(Coordinate c){
         if(!isInside(c)) {
            return 0;
         }

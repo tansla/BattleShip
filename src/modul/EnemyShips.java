@@ -1,6 +1,5 @@
 package modul;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -56,9 +55,9 @@ public class EnemyShips extends BaseField {
 
     private int calcShipLengthByDirection(Coordinate c, Direction d){
         int shipLength =0;
-        while (getCellValue(c.getNextTo(d)) == DECK_HIT) {
+        while (findCellValue(c.findNextToByDirection(d)) == DECK_HIT) {
             shipLength++;
-            c = c.getNextTo(d);
+            c = c.findNextToByDirection(d);
         }
         return shipLength;
     }
@@ -66,11 +65,11 @@ public class EnemyShips extends BaseField {
     private int findWhichShipDown(Coordinate c, boolean isHorizontal) {
         int shipLength = 1; // мы знаем что у нас подбит корабль и мы ищем остальные клетки
         if (isHorizontal) {
-            shipLength +=calcShipLengthByDirection(c,RIGHT);
-            shipLength +=calcShipLengthByDirection(c,LEFT);
+            shipLength += calcShipLengthByDirection(c,RIGHT);
+            shipLength += calcShipLengthByDirection(c,LEFT);
         } else {
-            shipLength +=calcShipLengthByDirection(c,DOWN);
-            shipLength +=calcShipLengthByDirection(c,UP);
+            shipLength += calcShipLengthByDirection(c,DOWN);
+            shipLength += calcShipLengthByDirection(c,UP);
         }
         return shipLength ;
     }
@@ -82,7 +81,7 @@ public class EnemyShips extends BaseField {
      * @param setValue
      */
     private void setCellValueWithCheck(Coordinate c, int checkValue, int setValue){
-        if (getCellValue(c) < checkValue) {
+        if (findCellValue(c) < checkValue) {
             setCellValue(c, setValue);
         }
     }
@@ -96,16 +95,16 @@ public class EnemyShips extends BaseField {
 
     private void setEmptyToDirection(Coordinate c, Direction d){
         do {
-            c = c.getNextTo(d);
+            c = c.findNextToByDirection(d);
             setCellValueWithCheck(c, EMPTY, EMPTY);
-        } while (getCellValue(c) == DECK_HIT);
+        } while (findCellValue(c) == DECK_HIT);
     }
 
     private void setEmptyAroundDeadShip(Coordinate c, int length, boolean isHorizontal) {
 
         if (length == 1){
             for(Direction d:straightDirections) {
-                setCellValueWithCheck(c.getNextTo(d),EMPTY,EMPTY);
+                setCellValueWithCheck(c.findNextToByDirection(d),EMPTY,EMPTY);
             }
         } else if(isHorizontal) {
             // horizontal ship
@@ -186,8 +185,8 @@ public class EnemyShips extends BaseField {
     private Coordinate lookForNextUnknownCell(Coordinate c, Direction d) {
         int cellValue;
         do {
-            c = c.getNextTo(d);
-            cellValue = getCellValue(c);
+            c = c.findNextToByDirection(d);
+            cellValue = findCellValue(c);
             if (cellValue < EMPTY) {
                 return c;
             }
@@ -212,7 +211,7 @@ public class EnemyShips extends BaseField {
             switch (myStrategy) {
                 case SEARCH4:
                     while (!listForSearch4.isEmpty()){
-                        if (getCellValue(listForSearch4.get(0))==UNKNOWN)
+                        if (findCellValue(listForSearch4.get(0))==UNKNOWN)
                         {
                             myShot = listForSearch4.get(0);
                             listForSearch4.remove(0);
@@ -222,7 +221,7 @@ public class EnemyShips extends BaseField {
                     }
                 case SEARCH3:
                     while (!listForSearch3.isEmpty()){
-                        if (getCellValue(listForSearch3.get(0))==UNKNOWN)
+                        if (findCellValue(listForSearch3.get(0))==UNKNOWN)
                         {
                             myShot = listForSearch3.get(0);
                             listForSearch3.remove(0);
@@ -233,7 +232,7 @@ public class EnemyShips extends BaseField {
 
                 case SEARCH2:
                     while (!listForSearch2.isEmpty()){
-                        if (getCellValue(listForSearch2.get(0))==UNKNOWN)
+                        if (findCellValue(listForSearch2.get(0))==UNKNOWN)
                         {
                             myShot = listForSearch2.get(0);
                             listForSearch2.remove(0);
@@ -245,7 +244,7 @@ public class EnemyShips extends BaseField {
                 default:
                     for (int i = 10; i > 0; i--) {
                         for (int j = 0; j < 10; j++) {
-                            if (getCellValue(new Coordinate(i, j)) < EMPTY) {
+                            if (findCellValue(new Coordinate(i, j)) < EMPTY) {
                                 myShot = new Coordinate(i, j);
                                 return new int[]{myShot.getX(), myShot.getY()};
                             }
