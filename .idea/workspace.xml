@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ee7c58f-3094-4d30-9b47-57def83a8d14" name="Default Changelist" comment="addded calcShipPointsByDirection - updated isShipDown in MyRandomShips">
-      <change afterPath="$PROJECT_DIR$/src/modul/Strategy.java" afterDir="false" />
+    <list default="true" id="1ee7c58f-3094-4d30-9b47-57def83a8d14" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modul/BaseField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/BaseField.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modul/EnemyShips.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modul/EnemyShips.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -243,7 +241,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594720659285</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="addded Class Strategy.java">
+      <created>1595144660953</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1595144660953</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -264,7 +269,8 @@
     <MESSAGE value="Strategy for injured Updated" />
     <MESSAGE value="findWhichShipDown updated" />
     <MESSAGE value="addded calcShipPointsByDirection - updated isShipDown in MyRandomShips" />
-    <option name="LAST_COMMIT_MESSAGE" value="addded calcShipPointsByDirection - updated isShipDown in MyRandomShips" />
+    <MESSAGE value="addded Class Strategy.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="addded Class Strategy.java" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="115" key="#Project_Settings" timestamp="1593796249933">
@@ -287,26 +293,26 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="966" y="321" key="#xdebugger.evaluate/0.0.1440.900@0.0.1440.900" timestamp="1594313349119" />
-    <state x="304" y="51" key="CommitChangelistDialog2" timestamp="1595141263450">
+    <state x="304" y="51" key="CommitChangelistDialog2" timestamp="1595144660762">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="304" y="51" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1595141263450" />
-    <state width="1398" height="340" key="GridCell.Tab.0.bottom" timestamp="1595144463558">
+    <state x="304" y="51" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1595144660762" />
+    <state width="1398" height="303" key="GridCell.Tab.0.bottom" timestamp="1595146891209">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="340" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1595144463558" />
-    <state width="1398" height="340" key="GridCell.Tab.0.center" timestamp="1595144463557">
+    <state width="1398" height="303" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1595146891209" />
+    <state width="1398" height="303" key="GridCell.Tab.0.center" timestamp="1595146891208">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="340" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1595144463557" />
-    <state width="1398" height="340" key="GridCell.Tab.0.left" timestamp="1595144463556">
+    <state width="1398" height="303" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1595146891208" />
+    <state width="1398" height="303" key="GridCell.Tab.0.left" timestamp="1595146891207">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="340" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1595144463556" />
-    <state width="1398" height="340" key="GridCell.Tab.0.right" timestamp="1595144463557">
+    <state width="1398" height="303" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1595146891207" />
+    <state width="1398" height="303" key="GridCell.Tab.0.right" timestamp="1595146891209">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="340" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1595144463557" />
+    <state width="1398" height="303" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1595146891209" />
     <state width="1398" height="363" key="GridCell.Tab.1.bottom" timestamp="1595143976925">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -349,40 +355,6 @@
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1595143956689" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>278</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>266</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>255</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>244</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>234</line>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/modul/EnemyShips.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="64" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="getCellValue(c)" language="JAVA" />

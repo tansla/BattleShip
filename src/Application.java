@@ -12,9 +12,9 @@ public class Application {
 
         //playerField.print("playerField");
        // playerEnemyShips.print("playerEnemyField");
+/*
 
-        /*
-        Strategy str1 = new Strategy(4);
+        Strategy str1 = new Strategy(1);
         int k =0;
 
         Coordinate c;
@@ -30,8 +30,8 @@ public class Application {
                 }
             }
         }
-*/
 
+*/
 
 
         try {
