@@ -14,6 +14,10 @@ public class EnemyShips extends BaseField {
     private boolean isInjured;
 
     private Map<Integer, Integer> listOfDeadShips = new HashMap<>();
+
+    private Map<Integer, Strategy> myStrategy = new HashMap<>();
+
+
     private List<Coordinate> listForSearch4 = new LinkedList<>();
     private List<Coordinate> listForSearch3 = new LinkedList<>();
     private List<Coordinate> listForSearch2 = new LinkedList<>();
@@ -38,6 +42,10 @@ public class EnemyShips extends BaseField {
         listForSearch4 = generateStrategy(4);
         listForSearch3 = generateStrategy(3);
         listForSearch2 = generateStrategy(2);
+
+        for (int i =2; i<=4; i++){
+            myStrategy.put(i,new Strategy(i));
+        }
 
     }
 
@@ -148,9 +156,7 @@ public class EnemyShips extends BaseField {
                 Integer shipCountObj = listOfDeadShips.get(lengthOfShip);
                 int shipCount = (shipCountObj == null) ? 1 : shipCountObj + 1;
                 listOfDeadShips.put(lengthOfShip, shipCount);
-                if(shipCount > 4) {
-                    System.out.println("Dead " + lengthOfShip + " become " + shipCount);
-                }
+
                 // set EMPTY around dead ship
                 setEmptyNextToInjuredCell(myShot);
                 setEmptyAroundDeadShip(myShot,lengthOfShip,isHorizontal);
@@ -166,9 +172,9 @@ public class EnemyShips extends BaseField {
 
     private int chooseStrategy(){
         //if(listForSearch4.isEmpty() && listForSearch2.isEmpty()) return SEARCH1;
-        if (!listOfDeadShips.containsKey(4)) return SEARCH4;
-        if (!listOfDeadShips.containsKey(3)) return SEARCH3;
-        return (!listOfDeadShips.containsKey(2))?SEARCH2: SEARCH1;
+        if (!listOfDeadShips.containsKey(4)) return 4;
+        if (!listOfDeadShips.containsKey(3)) return 3;
+        return (!listOfDeadShips.containsKey(2))?2: 1;
 
        //if (!listOfDeadShips.containsKey(3)) return SEARCH3;
        //if (listOfDeadShips.containsKey(3) && listOfDeadShips.get(3) <2) return SEARCH2;
@@ -206,53 +212,23 @@ public class EnemyShips extends BaseField {
             }
         } else {
             // looking for the next cell from the field
-            int myStrategy = chooseStrategy();
-
-            switch (myStrategy) {
-                case SEARCH4:
-                    while (!listForSearch4.isEmpty()){
-                        if (findCellValue(listForSearch4.get(0))==UNKNOWN)
-                        {
-                            myShot = listForSearch4.get(0);
-                            listForSearch4.remove(0);
-                            return new int[]{myShot.getX(), myShot.getY()};
-                        }
-                        listForSearch4.remove(0);
-                    }
-                case SEARCH3:
-                    while (!listForSearch3.isEmpty()){
-                        if (findCellValue(listForSearch3.get(0))==UNKNOWN)
-                        {
-                            myShot = listForSearch3.get(0);
-                            listForSearch3.remove(0);
-                            return new int[]{myShot.getX(), myShot.getY()};
-                        }
-                        listForSearch3.remove(0);
-                    }
-
-                case SEARCH2:
-                    while (!listForSearch2.isEmpty()){
-                        if (findCellValue(listForSearch2.get(0))==UNKNOWN)
-                        {
-                            myShot = listForSearch2.get(0);
-                            listForSearch2.remove(0);
-                            return new int[]{myShot.getX(), myShot.getY()};
-                        }
-                        listForSearch2.remove(0);
-                    }
-
-                default:
-                    for (int i = 10; i > 0; i--) {
-                        for (int j = 0; j < 10; j++) {
-                            if (findCellValue(new Coordinate(i, j)) < EMPTY) {
-                                myShot = new Coordinate(i, j);
-                                return new int[]{myShot.getX(), myShot.getY()};
-                            }
-                        }
-                    }
-
+            int currentStrategy = chooseStrategy();
+            if (currentStrategy != 1) {
+                do {
+                    myShot = myStrategy.get(currentStrategy).findNext();
+                } while(findCellValue(myShot) >=EMPTY);
+                return new int[]{myShot.getX(), myShot.getY()};
             }
-
+            else {
+                for (int i = 10; i > 0; i--) {
+                    for (int j = 0; j < 10; j++) {
+                        if (findCellValue(new Coordinate(i, j)) < EMPTY) {
+                            myShot = new Coordinate(i, j);
+                            return new int[]{myShot.getX(), myShot.getY()};
+                        }
+                    }
+                }
+            }
         }
         return new int[]{0, 0};
     }

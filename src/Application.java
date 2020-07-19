@@ -1,7 +1,7 @@
-import modul.Coordinate;
-import modul.Direction;
-import modul.EnemyShips;
-import modul.MyRandomShips;
+import modul.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static modul.Direction.*;
 
@@ -13,6 +13,25 @@ public class Application {
         //playerField.print("playerField");
        // playerEnemyShips.print("playerEnemyField");
 
+        /*
+        Strategy str1 = new Strategy(4);
+        int k =0;
+
+        Coordinate c;
+        while ((c = str1.findNext()) != null ){
+            System.out.println(k++ + " - " + c);
+        }
+
+
+        for (int i = 0; i < BaseField.FIELD_LENGTH; i++) {
+            for (int j = 0; j < BaseField.FIELD_LENGTH; j++) {
+                if ((i + j + 1) % 4 == 0) {
+                    System.out.println("i="+i+",j="+j);;
+                }
+            }
+        }
+*/
+
 
 
         try {
@@ -22,7 +41,7 @@ public class Application {
                 playerField.initMap();
                 EnemyShips playerEnemyShips = new EnemyShips();
                 playerEnemyShips.initStrategy();
-                playerField.print("Initial: " + j);
+               // playerField.print("Initial: " + j);
                 //playerEnemyShips.print("Initial");
 
                 for (int i = 0; i < 50; i++) {
@@ -30,7 +49,7 @@ public class Application {
                     int[] shotPlayerOne = playerEnemyShips.makeShot();
                     int shotResult = playerField.responseToShot(shotPlayerOne);
 
-                  // System.out.println(j + ".step " + i + ":" + shotPlayerOne[0] + "-" + shotPlayerOne[1] + " result " + shotResult);
+                   //System.out.println(j + ".step " + i + ":" + shotPlayerOne[0] + "-" + shotPlayerOne[1] + " result " + shotResult);
 
                     playerEnemyShips.shotProcessing(shotResult);
                     //playerEnemyShips.print("playerOneEnemyField");
@@ -38,6 +57,8 @@ public class Application {
 
 
                 }
+                System.out.println(j);
+
                 playerEnemyShips.print("playerOneEnemyField");
                 System.out.println(playerEnemyShips.getListOfDeadShips());
         }
@@ -46,6 +67,8 @@ public class Application {
             e.printStackTrace();
 
         }
+
+
 
 
 

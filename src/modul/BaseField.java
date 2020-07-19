@@ -2,7 +2,7 @@ package modul;
 
 public class BaseField {
 
-    protected static final int FIELD_LENGTH = 10;
+    public static final int FIELD_LENGTH = 10;
 
     private final int[][] field = new int[FIELD_LENGTH][FIELD_LENGTH];
 
