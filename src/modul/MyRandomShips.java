@@ -79,11 +79,12 @@ public class MyRandomShips extends BaseField {
     }
 
     private int[] calcShipPointsByDirection(Coordinate c,Direction d){
+        Coordinate tmpC = c;
         int[] shipPoints = new int[2];
-        while (findCellValue(c.findNextToByDirection(d)) != EMPTY) {
-            c = c.findNextToByDirection(d);
+        while (findCellValue(tmpC.findNextToByDirection(d)) != EMPTY) {
+            tmpC = tmpC.findNextToByDirection(d);
             shipPoints[0]++;
-            shipPoints[1] = shipPoints[1] + findCellValue(c);
+            shipPoints[1] = shipPoints[1] + findCellValue(tmpC);
         }
         return shipPoints;
     }

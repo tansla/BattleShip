@@ -38,10 +38,11 @@ public class EnemyShips extends BaseField {
     }
 
     private int calcShipLengthByDirection(Coordinate c, Direction d){
+        Coordinate tmpC = c;
         int shipLength =0;
-        while (findCellValue(c.findNextToByDirection(d)) == DECK_HIT) {
+        while (findCellValue(tmpC.findNextToByDirection(d)) == DECK_HIT) {
             shipLength++;
-            c = c.findNextToByDirection(d);
+            tmpC = tmpC.findNextToByDirection(d);
         }
         return shipLength;
     }
@@ -78,10 +79,11 @@ public class EnemyShips extends BaseField {
     }
 
     private void setEmptyToDirection(Coordinate c, Direction d){
+        Coordinate tmpC = c;
         do {
-            c = c.findNextToByDirection(d);
-            setCellValueWithCheck(c, EMPTY, EMPTY);
-        } while (findCellValue(c) == DECK_HIT);
+            tmpC = tmpC.findNextToByDirection(d);
+            setCellValueWithCheck(tmpC, EMPTY, EMPTY);
+        } while (findCellValue(tmpC) == DECK_HIT);
     }
 
     private void setEmptyAroundDeadShip(Coordinate c, int length, boolean isHorizontal) {
@@ -159,12 +161,13 @@ public class EnemyShips extends BaseField {
      */
 
     private Coordinate lookForNextUnknownCell(Coordinate c, Direction d) {
+        Coordinate tmpC = c;
         int cellValue;
         do {
-            c = c.findNextToByDirection(d);
-            cellValue = findCellValue(c);
+            tmpC = tmpC.findNextToByDirection(d);
+            cellValue = findCellValue(tmpC);
             if (cellValue < EMPTY) {
-                return c;
+                return tmpC;
             }
         } while (cellValue > EMPTY);
         return null;
@@ -173,6 +176,7 @@ public class EnemyShips extends BaseField {
     public int[] makeShot() {
 
         if (isInjured) {
+            //todo if there are 2 injured cells - you know direction
             for (Direction d : straightDirections) {
                 Coordinate nextShotCandidate = lookForNextUnknownCell(lastSuccessShot, d);
                 if(nextShotCandidate != null) {
